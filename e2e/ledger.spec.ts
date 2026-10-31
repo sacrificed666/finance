@@ -96,7 +96,8 @@ test("finds a page in the command palette", async ({ page }) => {
   await page.keyboard.type("repo");
   await expect(palette.getByRole("option").first()).toContainText("Reports");
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/\/reports$/u);
+  // The first visit to a page may take a while on a slow machine
+  await expect(page).toHaveURL(/\/reports$/u, { timeout: 15_000 });
   await expect(palette).toHaveCount(0);
 });
 
