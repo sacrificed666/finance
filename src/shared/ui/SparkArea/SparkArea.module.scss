@@ -1,0 +1,21 @@
+@use "@/shared/styles/mixins" as *;
+
+// Laid along the bottom of the box it sits in
+.area {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+}
+
+.svg {
+  display: block;
+}
+
+.fill {
+  @include chart-fade;
+}
+
+.line {
+  @include chart-line;
+}

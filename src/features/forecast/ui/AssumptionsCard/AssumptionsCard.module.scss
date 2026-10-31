@@ -1,0 +1,41 @@
+@use "@/shared/styles/mixins" as *;
+
+// The sliders three across on wide screens, the switches under them
+.grid {
+  display: grid;
+  gap: 1.25rem 1.5rem;
+
+  @include from(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.sliderHead {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.label {
+  @include label;
+}
+
+.value {
+  @include tnum;
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.sliderHint {
+  @include text-xs;
+  margin-top: 0.375rem;
+  color: var(--color-text-tertiary);
+}
+
+.toggle {
+  @include from(lg) {
+    grid-column: span 3 / span 3;
+  }
+}

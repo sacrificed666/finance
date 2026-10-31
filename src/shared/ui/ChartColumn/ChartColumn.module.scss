@@ -1,0 +1,5 @@
+@use "@/shared/styles/mixins" as *;
+
+.bar {
+  @include chart-bar;
+}

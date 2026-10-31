@@ -1,0 +1,81 @@
+@use "@/shared/styles/mixins" as *;
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.tile {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.caption {
+  @include caption;
+}
+
+.figure {
+  @include num-md;
+  margin-top: 0.25rem;
+  color: var(--color-text);
+}
+
+.good {
+  color: var(--color-income);
+}
+
+.fair {
+  color: var(--color-warning);
+}
+
+.weak {
+  color: var(--color-expense);
+}
+
+.hint {
+  @include truncate;
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.level {
+  margin-top: 0.75rem;
+}
+
+.toNext {
+  @include tnum;
+  @include text-xs;
+  margin-top: 0.375rem;
+  color: var(--color-text-tertiary);
+}
+
+// The achievement closest to unlocking
+.next {
+  @include text-sm;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.emoji {
+  @include text-lg;
+}
+
+.nextName {
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+}
+
+.share {
+  @include tnum;
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}

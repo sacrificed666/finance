@@ -1,0 +1,6 @@
+// A logo cut to a circle, like every mark
+.logo {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  object-fit: contain;
+}

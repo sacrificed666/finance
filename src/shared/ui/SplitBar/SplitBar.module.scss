@@ -1,0 +1,15 @@
+@use "@/shared/styles/mixins" as *;
+
+.bar {
+  display: flex;
+  margin: 0;
+  height: 0.75rem;
+  width: 100%;
+  gap: 0.125rem;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+}
+
+.part {
+  @include bar-slice;
+}

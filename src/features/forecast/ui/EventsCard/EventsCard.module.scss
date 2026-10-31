@@ -1,0 +1,55 @@
+@use "@/shared/styles/mixins" as *;
+
+.list {
+  @include rows;
+  margin-bottom: 0.75rem;
+}
+
+// A planned sum: its note and month, and its amount; it opens to be changed
+.event {
+  @include row-tap;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.note {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  color: var(--color-text);
+}
+
+.month {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.out {
+  color: var(--color-expense);
+}
+
+.in {
+  color: var(--color-income);
+}
+
+.footnote {
+  @include caption;
+}

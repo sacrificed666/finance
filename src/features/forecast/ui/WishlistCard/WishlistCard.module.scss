@@ -1,0 +1,55 @@
+@use "@/shared/styles/mixins" as *;
+
+.empty {
+  @include caption;
+}
+
+.summary {
+  margin-bottom: 0.75rem;
+}
+
+.count {
+  @include caption;
+}
+
+.rows {
+  @include rows;
+}
+
+// A wish: its emoji, its name with when it happens, and its price
+.row {
+  @include row-tap;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  color: var(--color-text);
+}
+
+.when {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.price {
+  @include tnum;
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}

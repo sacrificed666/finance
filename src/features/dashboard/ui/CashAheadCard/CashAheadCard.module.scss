@@ -1,0 +1,21 @@
+@use "@/shared/styles/mixins" as *;
+
+.summary {
+  margin-bottom: 0.75rem;
+}
+
+.endDate {
+  @include text-xs;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.dip {
+  font-weight: 600;
+  color: var(--color-expense);
+}
+
+.now {
+  @include caption;
+  @include tnum;
+}

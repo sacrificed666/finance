@@ -1,0 +1,106 @@
+@use "@/shared/styles/mixins" as *;
+
+.shown {
+  @include text-xs;
+  margin-bottom: 0.5rem;
+  padding-inline: 0.25rem;
+  color: var(--color-text-tertiary);
+}
+
+.reset {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.none {
+  @include text-sm;
+  padding-block: 2rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.rows {
+  @include rows;
+}
+
+.months {
+  @include space-y(0.75rem);
+}
+
+.monthHead {
+  @include group-head;
+  @include sticky-head;
+}
+
+.monthName {
+  color: var(--color-text);
+}
+
+.monthCount {
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.subtotal {
+  @include tnum;
+  color: var(--color-income);
+}
+
+.monthRows {
+  @include rows;
+  margin-top: 0.25rem;
+}
+
+.row {
+  @include row-tap;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.details {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.end {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  display: block;
+  font-weight: 600;
+  color: var(--color-income);
+}
+
+.day {
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.converted {
+  @include tnum;
+}

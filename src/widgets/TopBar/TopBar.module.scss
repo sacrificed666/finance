@@ -1,0 +1,40 @@
+@use "@/shared/styles/mixins" as *;
+
+// Sticks under the top edge on phones; tablets have the top bar instead
+.header {
+  position: sticky;
+  top: max(0.5rem, env(safe-area-inset-top));
+  z-index: 40;
+  margin-bottom: 1rem;
+
+  @include from(md) {
+    display: none;
+  }
+
+  @include hide-in-print;
+}
+
+// The brand on its own and the search beside it; the brand reads its width
+.bar {
+  container: topbar / inline-size;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// The eye opens the group at the right, the size of search
+.amounts {
+  margin-left: auto;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+// A round pane with the magnifier, at the far end
+.search {
+  @include glass-strong;
+  @include icon-btn;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}

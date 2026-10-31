@@ -1,0 +1,47 @@
+@use "@/shared/styles/mixins" as *;
+
+// A dashed place for what is still to come, compact enough to sit in a side card
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px dashed var(--color-separator);
+  border-radius: var(--radius-in-card);
+  padding: 1.25rem 1rem;
+  text-align: center;
+}
+
+// The subject's icon on a soft lime disc
+.mark {
+  margin-bottom: 0.25rem;
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
+.title {
+  font-weight: 650;
+  color: var(--color-text);
+}
+
+.hint {
+  max-width: 24rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.action {
+  margin-top: 0.5rem;
+}

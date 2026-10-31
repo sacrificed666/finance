@@ -1,0 +1,6 @@
+@use "@/shared/styles/mixins" as *;
+
+.message {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}

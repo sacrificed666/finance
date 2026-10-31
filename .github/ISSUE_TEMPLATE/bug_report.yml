@@ -1,0 +1,81 @@
+name: 🐞 Bug report
+description: Something does not work as expected
+title: "🐞 "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report a problem! Please check the existing issues first.
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 What happened?
+      description: A clear description of the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔁 Steps to reproduce
+      placeholder: |
+        1. Open Expenses and add an entry in USD
+        2. Switch the base currency to EUR
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected behaviour
+    validations:
+      required: true
+  - type: dropdown
+    id: page
+    attributes:
+      label: 🗺️ Where does it happen?
+      options:
+        - Dashboard or calendar
+        - Expenses, income or reports
+        - Accounts or investments
+        - Forecast
+        - Profile, sign-in or settings
+        - Bank import or notifications
+        - Setup, Docker or backups
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 🏷️ Version
+      description: Shown in the footer of the app.
+      placeholder: v1.0.0
+  - type: input
+    id: environment
+    attributes:
+      label: 💻 Browser and device
+      placeholder: Chrome 140 on macOS 26, Safari on iPhone 17…
+    validations:
+      required: true
+  - type: dropdown
+    id: theme
+    attributes:
+      label: 🎨 Appearance
+      description: Settings → Appearance
+      options:
+        - Auto
+        - Light
+        - Dark
+  - type: dropdown
+    id: effects
+    attributes:
+      label: ✨ Effects
+      description: Settings → Effects; Auto shows which level the device got.
+      options:
+        - Auto, full on this device
+        - Auto, reduced on this device
+        - Full
+        - Reduced
+  - type: textarea
+    id: context
+    attributes:
+      label: 📎 Screenshots or extra context

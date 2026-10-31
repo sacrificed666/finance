@@ -1,0 +1,19 @@
+# Shared editor settings
+root = true
+
+# Every file: UTF-8, LF line endings and two spaces
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Markdown keeps trailing spaces, which can mark a line break
+[*.md]
+trim_trailing_whitespace = false
+
+# Make needs tabs
+[Makefile]
+indent_style = tab

@@ -1,0 +1,61 @@
+@use "@/shared/styles/mixins" as *;
+
+.hint {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+.unsupported {
+  @include text-sm;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+// Rows in outline while the passkeys load
+.loading {
+  display: block;
+}
+
+.empty {
+  @include caption;
+}
+
+.rows {
+  @include rows;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.dates {
+  @include caption;
+  @include truncate;
+  display: block;
+}
+
+.remove {
+  @include icon-btn;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--color-fill);
+  color: var(--color-text-tertiary);
+}

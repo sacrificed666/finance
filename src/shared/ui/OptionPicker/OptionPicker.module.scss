@@ -1,0 +1,202 @@
+@use "@/shared/styles/mixins" as *;
+
+.picker {
+  position: relative;
+  min-width: 0;
+}
+
+.button {
+  @include glass-el;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-separator);
+  text-align: left;
+  color: var(--color-text);
+  outline: none;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  @include hover {
+    border-color: color-mix(in oklab, var(--color-text-tertiary) 28%, var(--color-separator));
+  }
+
+  @include focus-ring;
+}
+
+// Inside a row of filters
+.sm {
+  @include text-base;
+  height: var(--control-sm);
+  padding-inline: 0.875rem 0.25rem;
+
+  @include from(sm) {
+    font-size: 13px;
+  }
+}
+
+// A field of its own in a form
+.md {
+  @include text-base;
+  height: var(--control-md);
+  padding-inline: 1rem 0.5rem;
+
+  @include from(sm) {
+    font-size: 15px;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.value {
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+}
+
+.placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.chevron {
+  display: flex;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-inline-start: auto;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill-strong);
+  color: var(--color-text-secondary);
+}
+
+.chevronIcon {
+  transition-property: transform, translate, scale, rotate;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.chevronOpen {
+  rotate: 180deg;
+}
+
+// The list under the button, as wide as it and never shorter than 14rem
+.popover {
+  @include glass-strong;
+  @include pop-in;
+  position: absolute;
+  z-index: 50;
+  margin-top: 0.375rem;
+  display: flex;
+  max-height: min(24rem, 60vh);
+  width: 100%;
+  min-width: 14rem;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: 0.375rem;
+}
+
+.searchRow {
+  position: relative;
+  padding: 0 0 0.25rem;
+}
+
+.searchIcon {
+  pointer-events: none;
+  position: absolute;
+  left: 0.75rem;
+  top: calc(50% - 0.125rem);
+  translate: 0 -50%;
+  color: var(--color-text-tertiary);
+}
+
+.search {
+  @include glass-el;
+  @include text-sm;
+  width: 100%;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-separator);
+  padding: 0.5rem 0.75rem 0.5rem 2.125rem;
+  color: var(--color-text);
+  outline: none;
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  &:focus {
+    border-color: color-mix(in oklab, var(--color-accent) 45%, var(--color-separator));
+  }
+}
+
+.list {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  outline: none;
+}
+
+.empty {
+  @include text-sm;
+  padding: 1rem 0.75rem;
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
+.groupLabel {
+  @include label;
+  padding: 0.625rem 0.625rem 0.25rem;
+  color: var(--color-text-tertiary);
+}
+
+.option {
+  @include text-sm;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: calc(var(--radius-lg) - 0.375rem);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+// A subcategory sits in under its parent
+.child {
+  padding-left: 1.75rem;
+}
+
+// The option the arrows or the pointer are on
+.activeOption {
+  background-color: var(--color-fill-hover);
+}
+
+.selected {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.label {
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+}
+
+.hint {
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.check {
+  flex-shrink: 0;
+  color: var(--color-accent);
+}

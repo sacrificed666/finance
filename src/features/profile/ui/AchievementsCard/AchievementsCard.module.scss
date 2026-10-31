@@ -1,0 +1,233 @@
+@use "@/shared/styles/mixins" as *;
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+
+  @include from(sm) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.tierTile {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+// A tier's name in its colour, toned towards the text so it stays readable
+.tierName {
+  @include text-xs;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 600;
+  color: color-mix(in oklab, var(--tier) 45%, var(--color-text));
+}
+
+.dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  background-color: var(--tier);
+}
+
+.tierCount {
+  @include tnum;
+  @include text-sm;
+  margin-top: 0.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.next {
+  margin-top: 1rem;
+}
+
+.nextTitle {
+  @include card-title;
+  margin-bottom: 0.5rem;
+}
+
+.nextList {
+  display: grid;
+  gap: 0.5rem;
+
+  @include from(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.nextItem {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.nextBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.nextName {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.nextMeter {
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.nextShare {
+  @include tnum;
+  @include text-xs;
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+// The kind and the group of the achievements shown, in one row
+.filters {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.group {
+  min-width: 0;
+  flex: 1 1 12rem;
+  max-width: 18rem;
+}
+
+.none {
+  @include text-sm;
+  padding-block: 1.5rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.list {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.625rem;
+
+  @include from(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.more {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+.flipped {
+  scale: 1 -100%;
+}
+
+// An achievement on a lit glass tile
+.tile {
+  @include glass-el;
+  display: flex;
+  gap: 0.75rem;
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-in-card);
+  padding: 0.75rem;
+}
+
+// A locked one is only outlined, so its text keeps full contrast
+.locked {
+  background-color: transparent;
+}
+
+.medal {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+}
+
+.grey {
+  filter: grayscale(100%);
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.titleLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.title {
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+// The tier on a chip of its colour, the text toned towards the text colour
+.tier {
+  border-radius: var(--radius-full);
+  background-color: color-mix(in oklab, var(--tier) 14%, transparent);
+  color: color-mix(in oklab, var(--tier) 45%, var(--color-text));
+  padding: 1px 0.375rem;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.description {
+  margin-top: 0.125rem;
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.375;
+  color: var(--color-text-tertiary);
+}
+
+.progress {
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.count {
+  @include tnum;
+  margin-top: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.xp {
+  @include tnum;
+  flex-shrink: 0;
+  align-self: flex-start;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-soft);
+  padding: 0.125rem 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+// Words for screen readers only: an earned medal already shows it in colour
+.hidden {
+  @include visually-hidden;
+}

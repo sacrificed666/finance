@@ -1,0 +1,114 @@
+@use "@/shared/styles/mixins" as *;
+
+// The fieldset only groups the radios; a flex parent cannot squeeze its track
+.group {
+  min-inline-size: 0;
+}
+
+// Across the form it sits in, so a field and its choices line up edge to edge
+.track {
+  @include glass-well;
+  position: relative;
+  display: grid;
+  max-width: 100%;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-separator);
+}
+
+// In a header or a toolbar: as wide as the words, each segment as wide as the widest
+.fit {
+  display: inline-grid;
+  vertical-align: middle;
+}
+
+// The legend and the radios, there for assistive technology only
+.hidden {
+  @include visually-hidden;
+}
+
+// As tall as the fields beside it, in a form or in a toolbar
+.md {
+  height: var(--control-md);
+  padding: 0.25rem;
+
+  .thumb {
+    inset-block: 0.25rem;
+  }
+
+  .segment {
+    min-width: 2.75rem;
+    padding-inline: 0.875rem;
+    font-size: 0.875rem;
+  }
+}
+
+.sm {
+  height: var(--control-sm);
+  padding: 0.1875rem;
+
+  .thumb {
+    inset-block: 0.1875rem;
+  }
+
+  .segment {
+    min-width: 2.25rem;
+    padding-inline: 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+// The raised capsule that slides under the chosen segment
+.thumb {
+  position: absolute;
+  border-radius: var(--radius-full);
+  background-color: var(--glass-tint-strong);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--glass-rim) 70%, transparent),
+    inset 0 -1px 0 var(--glass-under-edge),
+    0 2px 6px var(--glass-rim-shade);
+  transition-property: left, width;
+  transition-timing-function: $ease;
+  transition-duration: 300ms;
+}
+
+// A segment centres its text the way a button would
+.segment {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  cursor: default;
+  user-select: none;
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+
+  @include hover {
+    color: var(--color-text);
+  }
+
+  &:has(:focus-visible) {
+    box-shadow: 0 0 0 2px var(--color-accent-soft);
+  }
+
+  // The chosen segment is outlined in forced colours mode
+  @media (forced-colors: active) {
+    &:has(:checked) {
+      outline: 2px solid Highlight;
+    }
+  }
+}
+
+.text {
+  @include truncate;
+  min-width: 0;
+}
+
+.active {
+  color: var(--color-text);
+}

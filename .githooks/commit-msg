@@ -1,0 +1,12 @@
+#!/bin/sh
+# Keeps the first line of a commit message to Conventional Commits
+
+first=$(head -n 1 "$1")
+case "$first" in
+  Merge\ * | Revert\ * | fixup!\ * | squash!\ * | amend!\ *) exit 0 ;;
+esac
+
+if ! printf '%s' "$first" | grep -Eq '^(feat|fix|refactor|perf|style|test|docs|build|ci|chore|revert)(\([a-z0-9-]+\))?!?: .+'; then
+  echo "Start the message with a type, for example: feat(search): remember recent cities"
+  exit 1
+fi

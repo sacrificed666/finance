@@ -1,0 +1,129 @@
+@use "@/shared/styles/mixins" as *;
+
+.frame {
+  min-width: 0;
+}
+
+// The page column, centred, with room for the phone's tab bar below
+.column {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1440px;
+  padding: 0.75rem 0.75rem 6rem;
+
+  @include from(sm) {
+    padding-inline: 1rem;
+  }
+
+  @include from(md) {
+    padding: 0.75rem 1.5rem 2rem;
+  }
+
+  @include from(xl) {
+    padding-inline: 2rem;
+  }
+
+  @media print {
+    padding: 0;
+  }
+}
+
+.main {
+  min-width: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// The page that a navigation fades out and settles in as one piece
+.page {
+  min-width: 0;
+}
+
+// The first stop of the keyboard, shown only while it has the focus
+.skip {
+  position: fixed;
+  top: max(0.75rem, env(safe-area-inset-top));
+  left: max(0.75rem, env(safe-area-inset-left));
+  z-index: 60;
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+  background: var(--color-accent-fill);
+  box-shadow: var(--glass-shadow);
+  color: var(--color-on-accent);
+  font-weight: 700;
+  translate: 0 -6rem;
+  transition: translate 0.2s ease;
+
+  @include text-sm;
+
+  &:focus-visible {
+    translate: 0 0;
+  }
+}
+
+// The page in outline while the account loads, spaced like the page itself
+.skeleton {
+  display: block;
+}
+
+// A shimmering fill standing in for a title, a button or a row of controls
+.bone {
+  @include shimmer;
+  display: block;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+}
+
+// The header: the title and the date under it on the left, the actions on the right
+.skeletonHeader {
+  margin-bottom: 1.25rem;
+  padding-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.skeletonTitles {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.skeletonTitle {
+  width: 11rem;
+  height: clamp(1.875rem, 1.4rem + 1.6vw, 2.75rem);
+  border-radius: 0.75rem;
+}
+
+.skeletonTitleWide {
+  width: min(22rem, 70vw);
+}
+
+.skeletonDate {
+  width: 10rem;
+  height: 0.875rem;
+}
+
+.skeletonButton {
+  width: 6.5rem;
+  height: 2.75rem;
+}
+
+.skeletonControls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skeletonSegments {
+  width: 10rem;
+  height: 2.75rem;
+}
+
+.skeletonRound {
+  width: 2.75rem;
+  height: 2.75rem;
+}

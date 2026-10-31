@@ -1,0 +1,9 @@
+@use "@/shared/styles/mixins" as *;
+
+.summary {
+  margin-bottom: 0.75rem;
+}
+
+.worse {
+  color: var(--color-expense);
+}

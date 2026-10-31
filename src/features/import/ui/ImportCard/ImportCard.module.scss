@@ -1,0 +1,158 @@
+@use "@/shared/styles/mixins" as *;
+
+.panels {
+  @include space-y(0.5rem);
+}
+
+// A way of importing in a well of its own
+.panel {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.panelHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.panelTitle {
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.owner {
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.body {
+  @include space-y(0.5rem);
+  margin-top: 0.5rem;
+}
+
+.caption {
+  @include caption;
+}
+
+.link {
+  font-weight: 600;
+  color: var(--color-accent);
+
+  @include hover {
+    text-decoration-line: underline;
+  }
+}
+
+.connect {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.token {
+  min-width: 0;
+  flex: 1;
+}
+
+.rows {
+  @include rows;
+}
+
+// A bank account with the app's account it books into, beside it from tablets
+.account {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+
+  @include from(sm) {
+    grid-template-columns: auto minmax(0, 1fr) 14rem;
+  }
+}
+
+.accountText {
+  min-width: 0;
+}
+
+.accountName {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  color: var(--color-text);
+}
+
+.balance {
+  @include tnum;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.bookTo {
+  grid-column-start: 2;
+
+  @include from(sm) {
+    grid-column-start: auto;
+  }
+}
+
+.load {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hook {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border-top: 1px solid var(--color-separator);
+  padding-top: 0.625rem;
+}
+
+.hookText {
+  min-width: 0;
+  flex: 1;
+}
+
+.hookTitle {
+  @include text-sm;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.csv {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.csvText {
+  min-width: 0;
+  flex: 1;
+}
+
+.file {
+  display: none;
+}
+
+.status {
+  @include caption;
+  margin-top: 0.5rem;
+}
+
+.error {
+  @include text-sm;
+  margin-top: 0.5rem;
+  color: var(--color-expense);
+}

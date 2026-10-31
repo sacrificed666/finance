@@ -1,0 +1,19 @@
+@use "@/shared/styles/mixins" as *;
+
+.file {
+  @include caption;
+}
+
+.columns {
+  display: grid;
+  gap: 0.75rem;
+
+  @include from(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// Which other apps' exports the columns understand
+.apps {
+  @include caption;
+}

@@ -1,0 +1,104 @@
+@use "@/shared/styles/mixins" as *;
+
+.bar {
+  margin-top: 0.625rem;
+}
+
+.dot {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
+.small {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.large {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+// Three parts side by side, each a label over its figures
+.three {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 1rem;
+}
+
+.cell {
+  min-width: 0;
+}
+
+.cellLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.cellName {
+  min-width: 0;
+}
+
+.cellFigures {
+  @include tnum;
+  margin-top: 0.125rem;
+  white-space: nowrap;
+}
+
+.cellAmount {
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cellShare {
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+// Rows of a legend, two columns from small tablets up
+.two {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.5rem 1.5rem;
+
+  @include from(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+  @include text-sm;
+}
+
+.icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.name {
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+  color: var(--color-text-secondary);
+}
+
+.share {
+  @include tnum;
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include tnum;
+  font-weight: 600;
+  color: var(--color-text);
+}

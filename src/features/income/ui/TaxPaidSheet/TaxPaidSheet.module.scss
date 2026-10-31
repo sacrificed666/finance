@@ -1,0 +1,52 @@
+@use "@/shared/styles/mixins" as *;
+
+// Every payment on a soft panel of its own, its day under its name
+.items {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.item {
+  display: grid;
+  gap: 0.625rem;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem 0.875rem;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.name {
+  @include text-sm;
+  min-width: 0;
+  flex: 1;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  font-weight: 650;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+// The day it was paid, its label beside the field from small tablets up
+.day {
+  display: grid;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+
+  @include from(sm) {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+.dayLabel {
+  @include label;
+}

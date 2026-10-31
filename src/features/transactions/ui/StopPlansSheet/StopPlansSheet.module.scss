@@ -1,0 +1,57 @@
+@use "@/shared/styles/mixins" as *;
+
+.intro {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+.rows {
+  @include rows;
+}
+
+.row {
+  @include row-tap;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.check {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-accent);
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.note {
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.fixed {
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}

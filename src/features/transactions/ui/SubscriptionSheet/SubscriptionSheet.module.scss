@@ -1,0 +1,19 @@
+@use "@/shared/styles/mixins" as *;
+
+.delete {
+  margin-right: auto;
+}
+
+.below {
+  margin-top: 0.5rem;
+}
+
+// Warns that saving rewrites the months the subscription already charged
+.rewrite {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.375;
+  color: var(--color-text-secondary);
+}

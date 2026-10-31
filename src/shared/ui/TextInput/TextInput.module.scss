@@ -1,0 +1,51 @@
+@use "@/shared/styles/mixins" as *;
+
+.input {
+  @include control;
+}
+
+.md {
+  @include control-size(md);
+}
+
+.sm {
+  @include control-size(sm);
+}
+
+// An empty date shows its format as faintly as any placeholder until it has the focus
+.blank:not(:focus) {
+  color: var(--color-text-tertiary);
+}
+
+// Room on the left for the prefix
+.prefixed {
+  padding-left: 2.375rem;
+}
+
+.wrap {
+  position: relative;
+}
+
+.prefix {
+  pointer-events: none;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  translate: 0 -50%;
+  color: var(--color-text-tertiary);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+// The prefix follows the text size of the field
+.prefixMd {
+  @include from(sm) {
+    font-size: 15px;
+  }
+}
+
+.prefixSm {
+  @include from(sm) {
+    font-size: 13px;
+  }
+}

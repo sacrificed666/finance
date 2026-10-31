@@ -1,0 +1,24 @@
+@use "@/shared/styles/mixins" as *;
+
+// A round glass button beside search
+.button {
+  @include glass-el;
+  @include icon-btn;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+
+  @include hover {
+    color: var(--color-text-secondary);
+  }
+}
+
+// Hidden amounts light the mark in the accent
+.on {
+  color: var(--color-accent);
+
+  @include hover {
+    color: var(--color-accent);
+  }
+}

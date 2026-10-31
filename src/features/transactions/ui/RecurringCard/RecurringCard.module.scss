@@ -1,0 +1,91 @@
+@use "@/shared/styles/mixins" as *;
+
+.block {
+  margin-bottom: 0.75rem;
+}
+
+.split {
+  @include caption;
+  @include tnum;
+}
+
+.out {
+  color: var(--color-expense);
+}
+
+.in {
+  color: var(--color-income);
+}
+
+.choose {
+  margin-top: 0.5rem;
+}
+
+.none {
+  @include text-sm;
+  padding-block: 1.5rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.rows {
+  @include rows;
+}
+
+.row {
+  @include row-tap;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+// A rule that waits or has ended
+.idle {
+  opacity: 0.6;
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.note {
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+// The schedule may take two lines in the narrow side column
+.meta {
+  @include clamp(2);
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.amountIn {
+  color: var(--color-income);
+}

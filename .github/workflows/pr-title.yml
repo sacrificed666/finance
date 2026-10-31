@@ -1,0 +1,25 @@
+name: 🏷️ Finance | Pull request title
+
+# Every new or edited pull request into a long-lived branch
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+    branches: ["main", "staging", "development"]
+
+# The title comes with the event, so the job needs no token
+permissions: {}
+
+jobs:
+  title:
+    name: 🏷️ PR | Title follows Conventional Commits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 🏷️ PR | Check the title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ ! "$TITLE" =~ ^(feat|fix|refactor|perf|style|test|docs|build|ci|chore|revert)(\([a-z0-9-]+\))?\!?:\ .+ ]]; then
+            echo "::error::Start the title with a type, for example: feat(search): remember recent cities"
+            exit 1
+          fi

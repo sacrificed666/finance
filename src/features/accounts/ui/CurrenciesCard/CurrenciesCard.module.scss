@@ -1,0 +1,9 @@
+@use "@/shared/styles/mixins" as *;
+
+// The amount in its own currency, under the row's label
+.native {
+  @include caption;
+  @include tnum;
+  margin-top: 0.125rem;
+  padding-left: 3rem;
+}

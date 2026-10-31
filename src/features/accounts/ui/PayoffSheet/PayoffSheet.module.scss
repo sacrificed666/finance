@@ -1,0 +1,68 @@
+@use "@/shared/styles/mixins" as *;
+
+.hint {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+.caption {
+  @include caption;
+}
+
+.block {
+  display: block;
+}
+
+.interest {
+  @include text-xs;
+  display: block;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.order {
+  @include space-y(0.5rem);
+}
+
+.rows {
+  @include rows;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+}
+
+// The place of a debt in the order
+.place {
+  @include tnum;
+  @include text-xs;
+  width: 1.25rem;
+  flex-shrink: 0;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  min-width: 0;
+  flex: 1;
+  color: var(--color-text);
+}
+
+.clears {
+  @include tnum;
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.stuck {
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-expense);
+}

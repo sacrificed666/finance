@@ -1,0 +1,61 @@
+@use "@/shared/styles/mixins" as *;
+
+.switcher {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+
+  @include from(sm) {
+    width: auto;
+  }
+}
+
+// A round arrow on a hairline edge
+.arrow {
+  @include icon-btn;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border: 1px solid var(--color-separator);
+  background-color: var(--color-fill);
+  color: var(--color-text-secondary);
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+// The month's name, with the badge of this month below it when they do not fit
+.month {
+  @include body-strong;
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem 0.5rem;
+  font-weight: 600;
+
+  @include from(sm) {
+    min-width: 11rem;
+  }
+}
+
+.name {
+  @include truncate;
+}
+
+.current {
+  @include text-xs;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-soft);
+  padding: 0.125rem 0.5rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.today {
+  flex-shrink: 0;
+}

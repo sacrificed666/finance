@@ -1,0 +1,7 @@
+@use "@/shared/styles/mixins" as *;
+
+.footnote {
+  @include text-xs;
+  margin-top: 0.75rem;
+  color: var(--color-text-tertiary);
+}

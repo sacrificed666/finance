@@ -1,0 +1,119 @@
+@use "@/shared/styles/mixins" as *;
+
+.scroll {
+  @include table-scroll;
+}
+
+.table {
+  @include data-table;
+
+  @include from(sm) {
+    min-width: 30rem;
+  }
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+// The sum of the taxes on phones, one column each from small tablets
+.narrowOnly {
+  @include from(sm) {
+    display: none;
+  }
+}
+
+.wideOnly {
+  display: none;
+
+  @include from(sm) {
+    display: table-cell;
+  }
+}
+
+.paidColumn {
+  width: 6rem;
+}
+
+.quarter {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.figure {
+  @include tnum;
+  text-align: right;
+  color: var(--color-text-secondary);
+}
+
+.strong {
+  color: var(--color-text);
+}
+
+// The paid toggle of a quarter
+.settle {
+  @include text-xs;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.625rem;
+  font-weight: 600;
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.settled {
+  background-color: color-mix(in oklab, var(--color-income) 15%, transparent);
+  color: var(--color-income);
+}
+
+.open {
+  background-color: var(--color-fill);
+  color: var(--color-text-tertiary);
+
+  @include hover {
+    color: var(--color-text);
+  }
+}
+
+.declaration {
+  margin-top: 0.75rem;
+}
+
+.declarationTitle {
+  @include card-title;
+  margin-bottom: 0.375rem;
+}
+
+.book {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.bookHint {
+  @include caption;
+  min-width: 0;
+  flex: 1;
+}
+
+.unknown {
+  @include caption;
+  margin-top: 0.5rem;
+  color: var(--color-warning);
+}
+
+.footnote {
+  @include caption;
+  margin-top: 0.75rem;
+}

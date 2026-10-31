@@ -1,0 +1,558 @@
+@use "sass:map";
+
+@forward "lists";
+@forward "motion";
+
+// The easing of every rise, slide and sweep
+$ease: cubic-bezier(0.22, 0.68, 0.24, 1);
+
+// Phone, small tablet, tablet, laptop and desktop widths
+$breakpoints: (
+  "sm": 40rem,
+  "md": 48rem,
+  "lg": 64rem,
+  "xl": 80rem,
+  "2xl": 96rem,
+);
+
+// Styles from a breakpoint up
+@mixin from($name) {
+  @media (min-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+// Styles below a breakpoint
+@mixin below($name) {
+  @media (width < map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+// Hover styles only for a mouse or a trackpad
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// Styles while the given ancestor is hovered
+@mixin hover-within($ancestor) {
+  @media (hover: hover) {
+    #{$ancestor}:hover & {
+      @content;
+    }
+  }
+}
+
+// Solid surfaces without blur, for people who ask for less transparency
+@mixin opaque {
+  @media (prefers-reduced-transparency: reduce) {
+    @content;
+  }
+}
+
+// Styles for the dark theme, picked or followed from the system
+@mixin dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &:where([data-theme="system"], [data-theme="system"] *) {
+      @content;
+    }
+  }
+}
+
+// Text sizes with line heights from the tokens, so no rounding moves a glyph
+@mixin text-xs {
+  font-size: 0.75rem;
+  line-height: var(--leading-xs);
+}
+
+// Small text
+@mixin text-sm {
+  font-size: 0.875rem;
+  line-height: var(--leading-sm);
+}
+
+// Body text
+@mixin text-base {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+// A sheet or card heading
+@mixin text-lg {
+  font-size: 1.125rem;
+  line-height: var(--leading-lg);
+}
+
+// A larger heading
+@mixin text-xl {
+  font-size: 1.25rem;
+  line-height: var(--leading-xl);
+}
+
+// The largest heading
+@mixin text-2xl {
+  font-size: 1.5rem;
+  line-height: var(--leading-2xl);
+}
+
+// A gap under every child but the last, weaker than any class on the children
+@mixin space-y($gap) {
+  :where(& > :not(:last-child)) {
+    margin-bottom: $gap;
+  }
+}
+
+// A gap after each child but the last in a row, weaker than any child class
+@mixin space-x($gap) {
+  :where(& > :not(:last-child)) {
+    margin-inline-end: $gap;
+  }
+}
+
+// Left out of a printed page
+@mixin hide-in-print {
+  @media print {
+    display: none;
+  }
+}
+
+// Hidden on screen but read by screen readers
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// One line, cut with an ellipsis
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Up to a few lines, wrapped between words, the last cut with an ellipsis
+@mixin clamp($lines) {
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+}
+
+// The keyboard focus ring of a control
+@mixin focus-ring($width: 4px) {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 $width var(--color-accent-soft);
+  }
+}
+
+// The hairline edge lit a little brighter along the top, and the soft drop
+@mixin card-shadow {
+  box-shadow:
+    inset 0 1px 0 var(--glass-top),
+    inset 0 0 0 1px var(--glass-hairline),
+    var(--glass-shadow);
+}
+
+// A printed pane: plain white with a hairline border
+@mixin print-plain {
+  @media print {
+    background: #fff !important;
+    border: 1px solid #dfe3e4 !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+// A pane: a dense tint the backdrop's glow shows through, a hairline and a drop
+@mixin glass-surface($tint, $blur) {
+  position: relative;
+  background: $tint;
+  -webkit-backdrop-filter: blur($blur) saturate(var(--glass-saturate));
+  backdrop-filter: blur($blur) saturate(var(--glass-saturate));
+  @include card-shadow;
+
+  // Less transparency: a denser tint and no blur
+  @include opaque {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  @include print-plain;
+}
+
+// A card in its subject's colour (--tint): a gradient, a corner light and an edge
+@mixin tinted-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.125rem;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in oklab, var(--tint) 30%, transparent), transparent 55%),
+    linear-gradient(
+      140deg,
+      color-mix(in oklab, var(--tint) 20%, var(--glass-tint-content)),
+      color-mix(in oklab, var(--tint) 5%, var(--glass-tint-content))
+    );
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--tint) 28%, transparent);
+
+  @media (forced-colors: active) {
+    border: 1px solid CanvasText;
+  }
+}
+
+// A content tile: flat and opaque, so it needs no blur
+@mixin glass {
+  position: relative;
+  background: var(--glass-tint-content);
+  @include card-shadow;
+  @include print-plain;
+}
+
+// A floating pane the page scrolls under: the top bar and the phone bars
+@mixin glass-strong {
+  @include glass-surface(var(--glass-tint-strong), var(--glass-blur-thick));
+}
+
+// A dialog, palette or tooltip pane: nearly opaque, no blur under typing
+@mixin glass-solid {
+  position: relative;
+  background: var(--glass-tint-overlay);
+  @include card-shadow;
+  @include print-plain;
+}
+
+// The one tile a page leads with: a hairline and a faint lime light under it
+@mixin glow {
+  box-shadow:
+    inset 0 0 0 1px var(--glass-hairline),
+    0 30px 70px -40px var(--color-accent-glow),
+    var(--glass-shadow);
+
+  @media print {
+    box-shadow: none !important;
+  }
+}
+
+// A card that lifts a little under the pointer
+@mixin glass-hover {
+  @media (hover: hover) {
+    transition:
+      translate 240ms $ease,
+      box-shadow 240ms ease;
+
+    &:hover {
+      translate: 0 -2px;
+      box-shadow:
+        inset 0 0 0 1px var(--glass-hairline),
+        0 22px 44px -24px rgb(0 0 0 / 0.35);
+    }
+  }
+}
+
+// The surface of inputs, buttons and chips: a quiet fill, no edge light
+@mixin glass-el {
+  background: var(--color-fill);
+
+  @include hover {
+    background: var(--color-fill-hover);
+  }
+}
+
+// An inset area inside a card
+@mixin glass-well {
+  background: var(--color-fill);
+}
+
+// The headline figure: large, solid ink
+@mixin hero-number {
+  color: var(--color-text);
+
+  @media (forced-colors: active) {
+    color: CanvasText;
+  }
+}
+
+// The lime of primary buttons with ink text, and a sweep of light on hover
+@mixin btn-gradient {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--color-accent-gradient);
+  color: var(--color-on-accent);
+  box-shadow:
+    0 8px 22px -10px var(--color-accent-glow),
+    inset 0 1px 0 rgb(255 255 255 / 0.45);
+
+  &:hover {
+    box-shadow:
+      0 10px 28px -10px var(--color-accent-glow),
+      inset 0 1px 0 rgb(255 255 255 / 0.55);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 34%, rgb(255 255 255 / 0.3) 50%, transparent 66%);
+    transform: translateX(-130%);
+    transition: transform 720ms $ease;
+  }
+
+  @media (hover: hover) {
+    &:hover::after {
+      transform: translateX(130%);
+    }
+  }
+}
+
+// A round icon button whose hit area reaches past the circle
+@mixin icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--glass-rim) 30%, transparent);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 120ms ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+  }
+
+  @include hover {
+    background-color: var(--color-fill-press);
+    color: var(--color-text);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, var(--glass-rim) 55%, transparent),
+      0 2px 6px var(--glass-rim-shade);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--color-accent-soft);
+  }
+}
+
+// The red hover of an icon button that deletes
+@mixin icon-btn-danger {
+  @include hover {
+    background-color: color-mix(in oklab, var(--color-expense) 14%, transparent);
+    color: var(--color-expense);
+  }
+}
+
+// A row that answers the pointer with a fill of the same radius
+@mixin row-tap {
+  border-radius: var(--radius-in-card);
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+
+  @include hover {
+    background-color: var(--color-fill-hover);
+  }
+
+  &:active {
+    background-color: var(--color-fill-press);
+  }
+}
+
+// The system's monospace fonts, for keys, codes and routes
+@mixin mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+// Figures in columns that line up
+@mixin tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+// The shared shape of every figure size
+@mixin num-base {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+// The page's headline figure, the largest type on the page
+@mixin num-hero {
+  @include num-base;
+  font-size: clamp(2.5rem, 1.6rem + 3vw, 3.75rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+// A large figure
+@mixin num-xl {
+  @include num-base;
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);
+}
+
+// A figure in a hero tile
+@mixin num-lg {
+  @include num-base;
+  font-size: 1.5rem;
+}
+
+// A figure in a summary
+@mixin num-md {
+  @include num-base;
+  font-size: 1.25rem;
+}
+
+// A small figure beside a label
+@mixin num-sm {
+  @include num-base;
+  font-size: 1rem;
+  letter-spacing: -0.015em;
+}
+
+// The title of a page: the largest words on it
+@mixin page-title {
+  font-size: clamp(1.875rem, 1.4rem + 1.6vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  color: var(--color-text);
+}
+
+// The label above a field
+@mixin label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+// Small grey text under a figure or a field
+@mixin caption {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--color-text-tertiary);
+}
+
+// Body text that carries weight
+@mixin body-strong {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+// The title of a card or section: plain words, bold, in the ink of the text
+@mixin section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+}
+
+// A tile's name: small, bold, spaced capitals
+@mixin tile-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+// A tile's name beside its mark: the same small capitals on every tile
+@mixin tile-name {
+  @include tile-label;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+// A small caps label over a group inside a card or a menu
+@mixin card-title {
+  @include tile-label;
+}
+
+// The edge and focus of text inputs and selects: a capsule, like every control
+@mixin control {
+  @include glass-el;
+  width: 100%;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-separator);
+  padding-inline: 1rem;
+  // A value or placeholder too long for the field ends in an ellipsis
+  text-overflow: ellipsis;
+  color: var(--color-text);
+  outline: none;
+  transition-property: background-color, border-color, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  @include hover {
+    border-color: color-mix(in oklab, var(--color-text-tertiary) 28%, var(--color-separator));
+  }
+
+  &:focus {
+    border-color: color-mix(in oklab, var(--color-accent) 45%, var(--color-separator));
+    box-shadow: 0 0 0 4px var(--color-accent-soft);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// The height and text size of a control
+@mixin control-size($size: md) {
+  padding-block: 0;
+  @include text-base;
+
+  @if $size == md {
+    height: var(--control-md);
+
+    @include from(sm) {
+      font-size: 15px;
+    }
+  } @else {
+    height: var(--control-sm);
+
+    @include from(sm) {
+      font-size: 13px;
+    }
+  }
+}

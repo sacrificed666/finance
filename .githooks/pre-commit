@@ -1,0 +1,19 @@
+#!/bin/sh
+# Checks the format, lint and text of the staged files before a commit
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$staged" ] && exit 0
+
+# The files Oxfmt formats
+format=$(printf '%s\n' $staged | grep -E '\.(ts|tsx|js|mjs|json|md|scss|css|html|yml|yaml)$' | grep -v 'package-lock\.json$')
+if [ -n "$format" ]; then
+  npx --no-install oxfmt --check $format || { echo "Formatting is off: run make fix, then stage the changes."; exit 1; }
+fi
+
+# The files Oxlint checks
+lint=$(printf '%s\n' $staged | grep -E '\.(ts|tsx|js|mjs)$')
+if [ -n "$lint" ]; then
+  npx --no-install oxlint $lint || exit 1
+fi
+
+node scripts/check-text.mjs $staged

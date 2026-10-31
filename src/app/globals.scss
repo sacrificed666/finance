@@ -1,0 +1,286 @@
+@use "@/shared/styles/mixins";
+@use "@/shared/styles/tokens";
+@use "@/shared/styles/preflight";
+
+// Shared and light tokens by default
+:root {
+  @include tokens.shared;
+  @include tokens.light;
+
+  // Cards breathe a little more from small tablets up
+  @include mixins.from(sm) {
+    --card-padding: 1rem;
+  }
+}
+
+// Dark tokens when picked in the settings
+[data-theme="dark"] {
+  @include tokens.dark;
+}
+
+// Dark tokens when the system theme is dark
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    @include tokens.dark;
+  }
+}
+
+// Solid panes for people who ask for less transparency
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    @include tokens.solid-light;
+  }
+
+  [data-theme="dark"] {
+    @include tokens.solid-dark;
+  }
+}
+
+// Solid dark panes for a dark system theme
+@media (prefers-reduced-transparency: reduce) and (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    @include tokens.solid-dark;
+  }
+}
+
+// Page defaults under every style module, which always win over them
+@layer base {
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  // The page fills the screen and smooths its type
+  html {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  // A column the full height of the screen, wider content clipped
+  body {
+    display: flex;
+    min-height: 100svh;
+    flex-direction: column;
+    overflow-x: clip;
+    background-color: var(--color-backdrop);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :root {
+    accent-color: var(--color-accent);
+    --scroll-thumb: color-mix(in oklab, var(--color-text-tertiary) 55%, transparent);
+    --scroll-thumb-hover: var(--color-text-tertiary);
+  }
+
+  // One focus ring for links, buttons and other keyboard stops
+  a:focus-visible,
+  button:focus-visible,
+  [role="radio"]:focus-visible,
+  [role="switch"]:focus-visible,
+  summary:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  // Fields draw their own focus
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
+
+  // Text fields drop the platform look; ranges and boxes keep theirs
+  input:not([type="range"], [type="checkbox"], [type="radio"], [type="file"]),
+  textarea {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-text-tertiary);
+  }
+
+  // Autofilled fields keep the theme instead of the browser's yellow
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-text);
+    -webkit-box-shadow: 0 0 0 1000px color-mix(in oklab, var(--color-fill), var(--color-backdrop)) inset;
+    caret-color: var(--color-text);
+    transition: background-color 100000s ease-in-out 0s;
+  }
+
+  // The date picker icon, faint until pointed at
+  ::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  [data-theme="dark"] ::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(1.6);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme="system"] ::-webkit-calendar-picker-indicator {
+      filter: invert(1) brightness(1.6);
+    }
+  }
+
+  // Number fields without spinners
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  // Thin scrollbars in the ink colour
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: var(--radius-full);
+    border: 4px solid transparent;
+    background-clip: padding-box;
+
+    &:hover {
+      background: var(--scroll-thumb-hover);
+      background-clip: padding-box;
+    }
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  option {
+    background-color: var(--glass-tint-strong);
+    color: var(--color-text);
+  }
+}
+
+// Navigation: the old page fades quickly, the new one settles in a moment later
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.page-out) {
+  animation: vt-fade-out 140ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(.page-in) {
+  animation: vt-settle-in 320ms var(--ease-out) 70ms both;
+}
+
+// The pill of the open page slides to the next one and settles without a bounce
+::view-transition-group(.pill-move) {
+  animation-duration: 340ms;
+  animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+// A theme change crossfades the whole page
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 360ms;
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-settle-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+// Animations and transitions stop for reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    // None at all: a 0.01 ms one would make every property of every element a transition
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+// Paper is white and keeps every colour the screen shows
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  main section {
+    break-inside: avoid;
+  }
+}

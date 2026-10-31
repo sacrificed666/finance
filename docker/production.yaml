@@ -1,0 +1,82 @@
+# Production build, served behind a reverse proxy that terminates TLS
+name: finance-production
+
+services:
+  db:
+    # Comes back after a crash or a reboot and stops cleanly
+    restart: unless-stopped
+    stop_grace_period: 30s
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 1g
+    cpus: 2
+    # Rotates the logs at 20 MB, keeping five files
+    logging:
+      options:
+        max-size: 20m
+        max-file: "5"
+
+  app:
+    image: finance:production
+    build:
+      target: runtime
+      args:
+        APP_ENV: production
+    # Settings and keys, read when the container starts
+    env_file: .env.production
+    # APP_ENV names the environment in the server logs
+    environment:
+      APP_ENV: production
+    # Only the proxy on this server reaches the app; APP_HOST and APP_PORT change that
+    ports:
+      - "${APP_HOST:-127.0.0.1}:${APP_PORT:-3000}:3000"
+    # Comes back after a crash or a reboot
+    restart: unless-stopped
+    stop_grace_period: 20s
+    # Locked down: no privileges and bounded resources
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: [/tmp]
+    pids_limit: 200
+    mem_limit: 1g
+    cpus: 2
+    # Rotates the logs at 20 MB, keeping five files
+    logging:
+      options:
+        max-size: 20m
+        max-file: "5"
+
+  # Dumps the database every night, keeps two weeks and can copy them offsite
+  backup:
+    image: finance-backup:production
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: backup
+    # Only what the dumps need: never the app's keys
+    environment:
+      PGHOST: db
+      PGUSER: ${POSTGRES_USER:-finance}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-finance}
+      PGDATABASE: ${POSTGRES_DB:-finance_tracker}
+      TZ: ${TZ:-Europe/Kyiv}
+      BACKUP_HOUR: ${BACKUP_HOUR:-3}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+      BACKUP_PREFIX: ${BACKUP_PREFIX:-prod}
+      BACKUP_REMOTE: ${BACKUP_REMOTE:-}
+      BACKUP_REMOTE_KEEP_DAYS: ${BACKUP_REMOTE_KEEP_DAYS:-90}
+      BACKUP_AGE_RECIPIENT: ${BACKUP_AGE_RECIPIENT:-}
+      BACKUP_RESTORE_CHECK_DAY: ${BACKUP_RESTORE_CHECK_DAY:-0}
+    volumes:
+      - ./backups:/backups
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 256m
+    cpus: 0.5
+    # Rotates the logs at 5 MB, keeping three files
+    logging:
+      options:
+        max-size: 5m
+        max-file: "3"

@@ -1,0 +1,113 @@
+@use "@/shared/styles/mixins" as *;
+
+.table {
+  @include data-table;
+  table-layout: fixed;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+// The value column from small tablets on
+.valueHead {
+  display: none;
+  width: 7rem;
+  text-align: right;
+
+  @include from(sm) {
+    display: table-cell;
+  }
+}
+
+.valueCell {
+  display: none;
+  text-align: right;
+
+  @include from(sm) {
+    display: table-cell;
+  }
+}
+
+.figureHead {
+  @include truncate;
+  width: 6rem;
+  text-align: right;
+
+  @include from(sm) {
+    width: 7rem;
+  }
+}
+
+// A whole row opens its position
+.row {
+  cursor: pointer;
+}
+
+// The mark beside the name and the kind under it
+.open {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.625rem;
+  text-align: left;
+}
+
+.disc {
+  grid-row: span 2;
+}
+
+.name {
+  @include truncate;
+  grid-column: 2;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.meta {
+  @include truncate;
+  @include text-xs;
+  grid-column: 2;
+  color: var(--color-text-tertiary);
+}
+
+.value {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.figure {
+  @include tnum;
+  display: block;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.expense {
+  color: var(--color-expense);
+}
+
+.strong {
+  color: var(--color-text);
+}
+
+.quiet {
+  color: var(--color-text-tertiary);
+}
+
+.share {
+  @include tnum;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}

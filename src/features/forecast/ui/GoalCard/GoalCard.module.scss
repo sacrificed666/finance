@@ -1,0 +1,130 @@
+@use "@/shared/styles/mixins" as *;
+
+.fields {
+  @include space-y(0.75rem);
+}
+
+.presets {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.progress {
+  margin-top: 1rem;
+}
+
+.progressHead {
+  @include text-xs;
+  margin-bottom: 0.375rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.progressLabel {
+  color: var(--color-text-secondary);
+}
+
+.progressShare {
+  @include tnum;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+// The outcome in a well of its own
+.outcome {
+  @include glass-well;
+  margin-top: 1rem;
+  border-radius: var(--radius-in-card);
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.check {
+  margin-inline: auto;
+  display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.there {
+  @include text-sm;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: var(--color-income);
+}
+
+.reachedTitle {
+  @include card-title;
+}
+
+.month {
+  @include hero-number;
+  @include num-md;
+  margin-top: 0.25rem;
+}
+
+.small {
+  @include text-xs;
+  margin-top: 0.25rem;
+  color: var(--color-text-tertiary);
+}
+
+.missed {
+  @include text-sm;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+// A part of the card under a hairline
+.section {
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-separator);
+  padding-top: 0.75rem;
+}
+
+.sectionTitle {
+  @include card-title;
+  margin-bottom: 0.5rem;
+}
+
+.needed {
+  @include text-sm;
+  margin-top: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+.milestonesTitle {
+  @include card-title;
+}
+
+.milestones {
+  @include space-y(0.375rem);
+  margin-top: 0.5rem;
+}
+
+.milestone {
+  @include text-sm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.amount {
+  @include tnum;
+  color: var(--color-text-secondary);
+}
+
+.when {
+  font-weight: 500;
+  color: var(--color-text);
+}

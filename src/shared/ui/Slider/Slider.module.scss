@@ -1,0 +1,78 @@
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+
+  // The track: accent up to the thumb, a well after it
+  &::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(
+      to right,
+      var(--color-accent) 0%,
+      var(--color-accent-strong) var(--fill, 50%),
+      var(--color-fill-strong) var(--fill, 50%),
+      var(--color-fill-strong) 100%
+    );
+  }
+
+  &::-moz-range-track {
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--color-fill-strong);
+  }
+
+  &::-moz-range-progress {
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(to right, var(--color-accent), var(--color-accent-strong));
+  }
+
+  // A white thumb ringed with the accent
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -6px;
+    height: 20px;
+    width: 20px;
+    border-radius: var(--radius-full);
+    background: #fff;
+    border: 2px solid var(--color-accent);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.28);
+    transition: transform 120ms ease;
+  }
+
+  &::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-full);
+    background: #fff;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.28);
+  }
+
+  &:hover::-webkit-slider-thumb,
+  &:active::-webkit-slider-thumb {
+    transform: scale(1.12);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 4px var(--color-accent-soft),
+      0 2px 8px rgb(0 0 0 / 0.28);
+  }
+
+  &:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 0 0 4px var(--color-accent-soft),
+      0 2px 8px rgb(0 0 0 / 0.28);
+  }
+}

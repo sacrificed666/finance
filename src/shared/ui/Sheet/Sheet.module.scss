@@ -1,0 +1,165 @@
+@use "@/shared/styles/mixins" as *;
+
+// A panel sliding in from the right edge, and out the same way
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drawer-out {
+  to {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+}
+
+// The native dialog is the panel: a bottom sheet on phones, a drawer on the right from tablets
+.sheet {
+  @include sheet-panel;
+  @include glass-solid;
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: calc(100dvh - 1.5rem);
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0;
+  overflow: visible;
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
+  color: inherit;
+  outline: none;
+
+  &[open] {
+    display: flex;
+  }
+
+  // The dim behind the dialog, a plain colour so nothing blurs under typing
+  &::backdrop {
+    @include overlay-in;
+    background-color: color-mix(in oklab, #000 45%, transparent);
+  }
+
+  // Beside the page at the top right, as tall as its fields and scrolling past the screen
+  @include from(md) {
+    inset: 0.625rem 0.625rem auto auto;
+    height: auto;
+    max-height: calc(100dvh - 1.25rem);
+    margin: 0;
+    border-radius: var(--radius-xl);
+    animation: drawer-in 0.3s cubic-bezier(0.22, 0.68, 0.24, 1) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+// A copy of a closed sheet leaving the way it came, over a fading dim
+.ghostPanel {
+  @include sheet-panel-out;
+
+  @include from(md) {
+    animation: drawer-out 0.2s cubic-bezier(0.4, 0, 1, 1) both;
+  }
+}
+
+.ghostDim {
+  @include overlay-out;
+  background-color: color-mix(in oklab, #000 50%, transparent);
+}
+
+.narrow {
+  @include from(sm) {
+    max-width: 28rem;
+  }
+}
+
+// Room for previews and tables
+.wide {
+  @include from(sm) {
+    max-width: 48rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1rem 0.75rem;
+
+  @include from(sm) {
+    padding-inline: 1.25rem;
+    padding-top: 1.25rem;
+  }
+}
+
+.title {
+  @include truncate;
+  min-width: 0;
+  @include text-lg;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.close {
+  @include icon-btn;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  background-color: var(--color-fill);
+  color: var(--color-text-tertiary);
+}
+
+.body {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.content {
+  @include space-y(0.875rem);
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  // A little room on top, so the focus ring of a first tile is not cut off
+  padding: 0.25rem 1rem 1rem;
+
+  @include from(sm) {
+    padding-inline: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+}
+
+// Actions that never scroll away, clear of the home indicator
+.footer {
+  border-top: 1px solid var(--color-separator);
+  padding: 0.875rem 1rem max(0.875rem, env(safe-area-inset-bottom));
+
+  @include from(sm) {
+    padding-inline: 1.25rem;
+  }
+}
+
+.problem {
+  @include caption;
+  margin-bottom: 0.625rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

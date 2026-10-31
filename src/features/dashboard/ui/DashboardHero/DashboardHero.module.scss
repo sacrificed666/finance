@@ -1,0 +1,200 @@
+@use "@/shared/styles/mixins" as *;
+
+.up {
+  color: var(--color-income);
+}
+
+.down {
+  color: var(--color-expense);
+}
+
+// Safe to spend and the month so far: stacked when wide, paired on tablets
+.sides {
+  @include stagger;
+  display: grid;
+  gap: 0.75rem;
+
+  @include from(sm) {
+    gap: 0.875rem;
+  }
+
+  @include from(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include from(xl) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.side {
+  @include glass;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  padding: 1.125rem 1.125rem 1.25rem;
+
+  @include from(sm) {
+    padding: 1.25rem 1.375rem 1.375rem;
+  }
+}
+
+// The tile's name with its icon, as on the figures of every other page
+.sideLabel {
+  @include tile-name;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.safe {
+  @include num-xl;
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 1.6rem + 1vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  color: var(--color-text);
+}
+
+.sideHint {
+  @include text-sm;
+  margin-top: 0.375rem;
+  color: var(--color-text-secondary);
+}
+
+.sideAction {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+// The month's days: spent ones shaded by how much, today lime, the rest faint lime
+.days {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 3px;
+  margin-top: auto;
+  padding-top: 1.125rem;
+}
+
+.day {
+  @include strip-in;
+  height: 1.625rem;
+  border-radius: 4px;
+  background-color: var(--color-fill);
+}
+
+.spent {
+  background-color: color-mix(in oklab, var(--color-expense) calc(25% + var(--level) * 60%), transparent);
+}
+
+.today {
+  background-color: var(--color-accent-fill);
+  box-shadow: 0 0 0 2px var(--color-accent-soft);
+}
+
+.ahead {
+  background-color: var(--color-accent-soft);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.875rem;
+  margin-top: 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+
+  > span::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.375rem;
+    border-radius: 2px;
+  }
+}
+
+.legendSpent::before {
+  background-color: color-mix(in oklab, var(--color-expense) 70%, transparent);
+}
+
+.legendToday::before {
+  background-color: var(--color-accent-fill);
+}
+
+.legendAhead::before {
+  background-color: var(--color-accent-soft);
+}
+
+// In, out and kept: a name, a bar on one scale and the figure
+.flows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: auto;
+  padding-top: 0.875rem;
+}
+
+.flow {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: var(--radius-in-card);
+  padding: 0.25rem 0.375rem;
+  margin-inline: -0.375rem;
+}
+
+a.flow {
+  @include row-tap;
+}
+
+.flowName {
+  @include truncate;
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.flowValue {
+  @include tnum;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.bar {
+  height: 1.375rem;
+  overflow: hidden;
+  border-radius: 0.4375rem;
+  background-color: var(--color-fill);
+}
+
+.barIn,
+.barOut,
+.barKept {
+  @include bar-slice;
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.barIn {
+  background-color: var(--color-income);
+}
+
+.barOut {
+  background-color: var(--color-expense);
+}
+
+// Kept: the income colour in stripes, a share rather than an amount
+.barKept {
+  background: repeating-linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-income) 60%, transparent) 0 6px,
+    color-mix(in oklab, var(--color-income) 28%, transparent) 6px 12px
+  );
+}

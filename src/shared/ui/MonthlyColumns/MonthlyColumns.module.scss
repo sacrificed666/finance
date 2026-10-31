@@ -1,0 +1,26 @@
+@use "@/shared/styles/mixins" as *;
+
+.plot {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.figure {
+  @include tnum;
+}
+
+.month {
+  transition: opacity 120ms;
+}
+
+// The other months fade while one is pointed at
+.dimmed {
+  opacity: 0.45;
+  transition: opacity 120ms;
+}
+
+.tooltipTitle {
+  margin-bottom: 0.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}

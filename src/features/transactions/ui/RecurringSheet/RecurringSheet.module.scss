@@ -1,0 +1,15 @@
+@use "@/shared/styles/mixins" as *;
+
+.delete {
+  margin-right: auto;
+}
+
+// Warns that saving rewrites the months the rule already posted
+.rewrite {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.375;
+  color: var(--color-text-secondary);
+}

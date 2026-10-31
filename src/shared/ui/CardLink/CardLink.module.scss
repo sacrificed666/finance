@@ -1,0 +1,35 @@
+@use "@/shared/styles/mixins" as *;
+
+.link {
+  @include glass-el;
+  display: inline-flex;
+  min-height: var(--control-sm);
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-separator);
+  padding-inline: 0.625rem;
+  @include text-xs;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  transition-property: background-color, border-color, box-shadow, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  @include hover {
+    border-color: color-mix(in oklab, var(--color-text-tertiary) 28%, var(--color-separator));
+    background-color: var(--color-fill-hover);
+    color: var(--color-text);
+  }
+}
+
+// The arrow nudges forward while the link is hovered
+.arrow {
+  transition-property: transform, translate, scale, rotate;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+
+  @include hover-within(".link") {
+    translate: 0.125rem 0;
+  }
+}

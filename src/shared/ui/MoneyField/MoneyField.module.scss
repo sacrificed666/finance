@@ -1,0 +1,88 @@
+@use "@/shared/styles/mixins" as *;
+
+// The amount takes the room, the currency signs keep their width
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  > :first-child {
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+.currency {
+  flex: none;
+}
+
+// The large amount: a tile with its name and the signs on top, the figure big under them
+.hero {
+  @include glass-well;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.375rem;
+  border-radius: var(--radius-in-card);
+  padding: 0.875rem 1rem 1rem;
+  transition: box-shadow var(--duration-fast) ease;
+
+  &:focus-within {
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+  }
+}
+
+.heroHead {
+  display: flex;
+  min-height: var(--control-sm);
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.heroLabel {
+  @include tile-label;
+}
+
+.heroRow {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  gap: 0.375rem;
+}
+
+.heroSign {
+  @include num-xl;
+  font-weight: 800;
+  color: var(--color-text-tertiary);
+}
+
+// The figure itself, as large as a page's headline figures
+.heroInput {
+  @include tnum;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: clamp(2.25rem, 1.8rem + 1.6vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+  outline: none;
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+    opacity: 0.6;
+  }
+}
+
+// What a typed sum comes to, under the field until it is left
+.sum {
+  @include tnum;
+  @include text-sm;
+  font-weight: 650;
+  color: var(--color-text-secondary);
+}

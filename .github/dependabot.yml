@@ -1,0 +1,59 @@
+version: 2
+
+updates:
+  # npm packages, minor and patch updates grouped into runtime and tooling
+  - package-ecosystem: npm
+    directory: /
+    target-branch: development
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    # New releases wait a while first, so broken or hijacked versions are caught
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
+      semver-minor-days: 7
+      semver-patch-days: 3
+    commit-message:
+      prefix: chore(deps)
+    # The Node.js types follow the oldest version in engines, not the newest
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+    groups:
+      production:
+        dependency-type: production
+        update-types: [minor, patch]
+      development:
+        dependency-type: development
+        update-types: [minor, patch]
+
+  # GitHub Actions, pinned to commit SHAs, all in one pull request
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: development
+    # New releases wait a week first; security updates never wait
+    cooldown:
+      default-days: 7
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: ci(deps)
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Docker base images, pinned by digest
+  - package-ecosystem: docker
+    directory: /docker
+    target-branch: development
+    # New releases wait a week first; security updates never wait
+    cooldown:
+      default-days: 7
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: build(deps)

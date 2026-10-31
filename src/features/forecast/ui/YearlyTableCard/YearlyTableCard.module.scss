@@ -1,0 +1,123 @@
+@use "@/shared/styles/mixins" as *;
+
+.scroll {
+  @include table-scroll;
+}
+
+.table {
+  @include data-table;
+
+  @include from(sm) {
+    min-width: 26rem;
+  }
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+// A column shown from small tablets on
+.wide {
+  display: none;
+  text-align: right;
+
+  @include from(sm) {
+    display: table-cell;
+  }
+}
+
+.totalHead {
+  width: 34%;
+  text-align: right;
+}
+
+.now {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.year {
+  color: var(--color-text-secondary);
+}
+
+.figure {
+  @include tnum;
+  display: none;
+  text-align: right;
+  color: var(--color-text-secondary);
+
+  @include from(sm) {
+    display: table-cell;
+  }
+}
+
+.debt {
+  @include tnum;
+  display: none;
+  text-align: right;
+  color: var(--color-expense);
+
+  @include from(sm) {
+    display: table-cell;
+  }
+}
+
+// The total with a bar of its share of the largest one
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.625rem;
+}
+
+.bar {
+  display: none;
+  height: 0.375rem;
+  flex: 1;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill-strong);
+
+  @include from(sm) {
+    display: block;
+  }
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.net {
+  @include tnum;
+  width: 5rem;
+  flex-shrink: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.added {
+  @include tnum;
+  text-align: right;
+}
+
+.grew {
+  color: var(--color-income);
+}
+
+.flat {
+  color: var(--color-text-tertiary);
+}
+
+.hint {
+  @include text-xs;
+  margin-top: 0.75rem;
+  color: var(--color-text-tertiary);
+}

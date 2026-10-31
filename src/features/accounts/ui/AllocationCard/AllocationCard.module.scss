@@ -1,0 +1,88 @@
+@use "@/shared/styles/mixins" as *;
+
+// The way of splitting and the period, side by side in the header
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+// One stacked column a month, each part's height its share
+.columns {
+  display: flex;
+  height: 11rem;
+  align-items: stretch;
+  gap: 0.375rem;
+}
+
+.column {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.stack {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column-reverse;
+  gap: 2px;
+  overflow: hidden;
+  border-radius: 0.375rem;
+}
+
+.segment {
+  display: block;
+  min-height: 2px;
+  flex-basis: 0;
+}
+
+.month {
+  @include text-xs;
+  @include truncate;
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
+.legend {
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.375rem;
+  padding: 0;
+  list-style: none;
+
+  @include from(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.name {
+  @include text-sm;
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+}
+
+.share {
+  @include tnum;
+  @include text-sm;
+  font-weight: 600;
+}

@@ -1,0 +1,18 @@
+@use "@/shared/styles/mixins" as *;
+
+// A link with the arrow lines the arrow up with its text
+.withIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.arrow {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+// What a screen reader hears beyond the visible text
+.hidden {
+  @include visually-hidden;
+}

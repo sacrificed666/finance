@@ -1,0 +1,13 @@
+@use "@/shared/styles/mixins" as *;
+
+.tooltip {
+  @include glass-solid;
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+  width: max-content;
+  border-radius: var(--radius-in-card);
+  padding: 0.375rem 0.625rem;
+  font-size: 11px;
+  line-height: 1.25;
+}

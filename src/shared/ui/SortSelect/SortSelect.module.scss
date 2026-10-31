@@ -1,0 +1,35 @@
+@use "@/shared/styles/mixins" as *;
+
+.sort {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 11rem;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.select {
+  min-width: 0;
+  flex: 1;
+}
+
+.direction {
+  @include glass-el;
+  @include icon-btn;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border: 1px solid var(--color-separator);
+  color: var(--color-text-secondary);
+}
+
+.arrows {
+  transition-property: transform, translate, scale, rotate;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+// Ascending turns the arrows upside down
+.flipped {
+  scale: 1 -1;
+}

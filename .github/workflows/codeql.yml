@@ -1,0 +1,51 @@
+name: 🛡️ Finance | CodeQL
+
+# Every change, and weekly so new queries also check old code
+on:
+  push:
+    branches: ["main", "staging", "development"]
+  pull_request:
+    branches: ["main", "staging", "development"]
+  schedule:
+    - cron: "49 5 * * 1"
+  workflow_dispatch:
+
+# A read-only token; the analysis job may write security results
+permissions:
+  contents: read
+
+# One run per branch; a new push to a pull request cancels the older one
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  analyze:
+    name: 🔬 CodeQL | Analyze ${{ matrix.language }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [actions, javascript-typescript]
+    steps:
+      - name: 📥 Git | Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: 🧰 CodeQL | Initialize
+        uses: github/codeql-action/init@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+          queries: security-extended
+
+      - name: 🔬 CodeQL | Analyze
+        uses: github/codeql-action/analyze@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          category: /language:${{ matrix.language }}

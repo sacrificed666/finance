@@ -1,0 +1,16 @@
+@use "@/shared/styles/mixins" as *;
+
+// Several lines: a rounded rectangle instead of a capsule
+.area {
+  @include control;
+  border-radius: var(--radius-in-card);
+  min-height: 5rem;
+  resize: vertical;
+  padding-block: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.625;
+
+  @include from(sm) {
+    font-size: 0.875rem;
+  }
+}

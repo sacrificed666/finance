@@ -1,0 +1,33 @@
+@use "@/shared/styles/mixins" as *;
+
+.fields {
+  @include space-y(1rem);
+  min-width: 0;
+}
+
+// What the regime takes, one part a line on a soft panel
+.parts {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.25rem 0.875rem;
+}
+
+.part {
+  @include text-sm;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.5rem;
+  color: var(--color-text-secondary);
+
+  & + & {
+    border-top: 1px solid var(--color-separator);
+  }
+}
+
+.rate {
+  @include tnum;
+  font-weight: 650;
+  white-space: nowrap;
+  color: var(--color-text);
+}

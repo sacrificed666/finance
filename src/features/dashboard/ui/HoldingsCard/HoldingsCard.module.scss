@@ -1,0 +1,77 @@
+@use "@/shared/styles/mixins" as *;
+
+.native {
+  @include tnum;
+  @include text-xs;
+  margin-top: 0.125rem;
+  padding-left: 1.25rem;
+  color: var(--color-text-tertiary);
+}
+
+.tiles {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+// A link to the accounts or the investments with their total
+.tile {
+  min-width: 0;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @include hover {
+    background-color: var(--color-fill-hover);
+  }
+}
+
+.label {
+  @include text-xs;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: var(--color-text-tertiary);
+}
+
+// The arrow nudges forward while the tile is hovered
+.arrow {
+  transition: translate 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @include hover-within(".tile") {
+    translate: 0.125rem 0;
+  }
+}
+
+.value {
+  @include num-sm;
+  margin-top: 0.25rem;
+  display: block;
+  color: var(--color-text);
+}
+
+.hint {
+  @include truncate;
+  @include text-xs;
+  margin-top: 0.125rem;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+// Today's exchange rates under the currencies
+.rates {
+  @include text-xs;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.ratesIcon {
+  flex-shrink: 0;
+}

@@ -1,0 +1,12 @@
+@use "@/shared/styles/mixins" as *;
+
+.footnote {
+  @include text-xs;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 0.5rem;
+  padding-inline: 0.25rem;
+  color: var(--color-text-tertiary);
+}

@@ -1,0 +1,131 @@
+// A list's wrapper: rounded rows split by hairlines inset to their text
+@mixin rows {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    border-radius: var(--radius-in-card);
+  }
+
+  // Drawn as a background, so a row's own fill and corners stay its own
+  > * + * {
+    background-image: linear-gradient(var(--color-separator), var(--color-separator));
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: calc(100% - 1.5rem) 1px;
+  }
+}
+
+// The column header above a list of rows: quiet labels over a hairline
+@mixin rows-head {
+  border-bottom: 1px solid var(--color-separator);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+// A day or month heading inside a list, with the group's total, over a hairline
+@mixin group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--color-separator);
+  padding: 0.125rem 0.75rem 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+// A group's heading that stays under the bars while its rows scroll by
+@mixin sticky-head {
+  position: sticky;
+  top: 3.25rem;
+  z-index: 2;
+  background-color: var(--glass-tint-content);
+  padding-top: 0.625rem;
+
+  @media (min-width: 48rem) {
+    top: 4.25rem;
+  }
+
+  @media print {
+    position: static;
+  }
+}
+
+// The green-tinted sum under a list
+@mixin total-row {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-accent-soft);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+// Sideways scrolling for a table wider than a phone, and nothing else
+@mixin table-scroll {
+  margin-inline: -0.25rem;
+  padding-inline: 0.25rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
+// A real table: its header on a soft rounded band, rows split by hairlines, a tinted footer
+@mixin data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+
+  th,
+  td {
+    padding: 0.6875rem 0.875rem;
+    transition: background-color 160ms ease;
+  }
+
+  th {
+    background-color: var(--color-fill);
+    padding-block: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--color-text-secondary);
+  }
+
+  th:first-child,
+  td:first-child {
+    border-start-start-radius: var(--radius-in-card);
+    border-end-start-radius: var(--radius-in-card);
+  }
+
+  th:last-child,
+  td:last-child {
+    border-start-end-radius: var(--radius-in-card);
+    border-end-end-radius: var(--radius-in-card);
+  }
+
+  tbody tr + tr td {
+    box-shadow: inset 0 1px 0 var(--color-separator);
+  }
+
+  tfoot td {
+    background-color: var(--color-accent-soft);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  @media (hover: hover) {
+    tbody tr:hover td {
+      background-color: var(--color-fill-hover);
+    }
+  }
+
+  tr[data-href],
+  tr[role="button"] {
+    cursor: pointer;
+  }
+}

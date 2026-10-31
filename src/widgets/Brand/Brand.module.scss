@@ -1,0 +1,77 @@
+@use "@/shared/styles/mixins" as *;
+
+// The logo and the name, without a pad that lights up under the pointer
+.brand {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+
+  @include focus-ring;
+}
+
+.mark {
+  position: relative;
+  flex-shrink: 0;
+}
+
+// The brand mark with a soft lime light under it
+.logo {
+  display: block;
+  filter: drop-shadow(0 4px 10px rgb(160 214 40 / 0.3));
+}
+
+.dot {
+  position: absolute;
+  right: -0.125rem;
+  top: -0.125rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 2px var(--color-backdrop);
+}
+
+.saving {
+  @include pulse;
+  background-color: var(--color-income);
+}
+
+.failed {
+  background-color: var(--color-expense);
+}
+
+// A tight line height for the box; the name and the figure keep their own
+.text {
+  min-width: 0;
+  line-height: 1.2;
+
+  // A narrow phone bar keeps the logo alone; screen readers still hear the name
+  @container topbar (width < 22rem) {
+    @include visually-hidden;
+  }
+}
+
+.name {
+  @include truncate;
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.worth {
+  @include tnum;
+  @include text-xs;
+  @include truncate;
+  display: block;
+  margin-top: 0.0625rem;
+  color: var(--color-text-tertiary);
+}
+
+// Where the link goes, for screen readers after the visible name
+.hidden {
+  @include visually-hidden;
+}

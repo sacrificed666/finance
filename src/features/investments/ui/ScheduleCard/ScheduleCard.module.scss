@@ -1,0 +1,150 @@
+@use "@/shared/styles/mixins" as *;
+
+.before {
+  margin-bottom: 1rem;
+}
+
+.after {
+  margin-top: 1rem;
+}
+
+.title {
+  @include card-title;
+  margin-bottom: 0.5rem;
+}
+
+.matured {
+  @include space-y(0.5rem);
+}
+
+// A term that has ended, tinted until it is renewed or withdrawn
+.ended {
+  border: 1px solid color-mix(in oklab, var(--color-warning) 35%, transparent);
+  border-radius: var(--radius-in-card);
+  background-color: color-mix(in oklab, var(--color-warning) 10%, transparent);
+  padding: 0.625rem;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  color: var(--color-text);
+}
+
+.date {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.choices {
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.flows {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.flow {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.caption {
+  @include caption;
+}
+
+.figure {
+  @include num-sm;
+  margin-top: 0.25rem;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.yearly {
+  @include caption;
+  margin-top: 0.125rem;
+}
+
+.rows {
+  @include rows;
+}
+
+// A maturing position: its mark, name and date, and what it comes to
+.row {
+  @include row-tap;
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.disc {
+  grid-row: span 2;
+}
+
+.rowName {
+  @include truncate;
+  @include text-sm;
+  grid-column: 2;
+  color: var(--color-text);
+}
+
+.rowDate {
+  @include truncate;
+  @include text-xs;
+  grid-column: 2;
+  color: var(--color-text-tertiary);
+}
+
+.rowAmount {
+  @include text-sm;
+  grid-row: 1 / span 2;
+  grid-column: 3;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text);
+}
+
+.more {
+  @include text-xs;
+  margin-top: 0.5rem;
+  color: var(--color-text-tertiary);
+}

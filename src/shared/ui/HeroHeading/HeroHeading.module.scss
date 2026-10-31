@@ -1,0 +1,21 @@
+@use "@/shared/styles/mixins" as *;
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+}
+
+.title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.summary {
+  @include tnum;
+  @include text-xs;
+  color: var(--color-text-secondary);
+}

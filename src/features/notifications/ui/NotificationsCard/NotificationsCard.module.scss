@@ -1,0 +1,37 @@
+@use "@/shared/styles/mixins" as *;
+
+.body {
+  @include space-y(0.75rem);
+}
+
+.hint {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.reason {
+  @include text-sm;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+// A switch with its title and what it does, under a hairline
+.line {
+  border-top: 1px solid var(--color-separator);
+  padding-top: 0.75rem;
+}
+
+.note {
+  @include text-sm;
+}
+
+.ok {
+  color: var(--color-income);
+}
+
+.failed {
+  color: var(--color-expense);
+}

@@ -1,0 +1,96 @@
+@use "@/shared/styles/mixins" as *;
+
+.summary {
+  margin-bottom: 0.75rem;
+}
+
+.outside {
+  @include caption;
+  margin-top: 0.5rem;
+}
+
+.rows {
+  @include rows;
+}
+
+.row {
+  @include row-tap;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.icon {
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  min-width: 0;
+  flex: 1;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.muted {
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.amounts {
+  @include tnum;
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.overAmounts {
+  font-weight: 600;
+  color: var(--color-expense);
+}
+
+.meterLine {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.meter {
+  min-width: 0;
+  flex: 1;
+}
+
+.share {
+  @include tnum;
+  width: 2.5rem;
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 0.75rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.overShare {
+  color: var(--color-expense);
+}
+
+.notes {
+  @include text-xs;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.runsOut {
+  color: var(--color-warning);
+}

@@ -1,0 +1,99 @@
+@use "@/shared/styles/mixins" as *;
+
+// The page's colour, registered so a change of page fades from one to the next
+@property --page-tone {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #c6f35e;
+}
+
+// The fixed backdrop behind every page, never printed
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  contain: strict;
+  background-color: var(--color-backdrop);
+
+  @include hide-in-print;
+}
+
+// An aurora of lime and the page's colour from the top, soft without any blur
+.glow {
+  --page-tone: var(--tone-dashboard);
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      48rem 26rem at 88% -8rem,
+      color-mix(in oklab, var(--color-accent-fill) var(--aurora-mix), transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      44rem 24rem at 6% -10rem,
+      color-mix(in oklab, var(--page-tone) var(--aurora-mix-soft), transparent),
+      transparent 70%
+    );
+}
+
+// Only a page change fades the colour; on the first load it would cost the main thread
+:root[data-entered] .glow {
+  transition: --page-tone 900ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+// Each page lends the glow its own colour
+:root[data-page="calendar"] .glow {
+  --page-tone: var(--tone-calendar);
+}
+
+:root[data-page="reports"] .glow {
+  --page-tone: var(--tone-reports);
+}
+
+:root[data-page="expenses"] .glow {
+  --page-tone: var(--tone-expenses);
+}
+
+:root[data-page="income"] .glow {
+  --page-tone: var(--tone-income);
+}
+
+:root[data-page="accounts"] .glow {
+  --page-tone: var(--tone-accounts);
+}
+
+:root[data-page="investments"] .glow {
+  --page-tone: var(--tone-investments);
+}
+
+:root[data-page="forecast"] .glow {
+  --page-tone: var(--tone-forecast);
+}
+
+:root[data-page="profile"] .glow {
+  --page-tone: var(--tone-profile);
+}
+
+:root[data-page="settings"] .glow {
+  --page-tone: var(--tone-settings);
+}
+
+// A dot grid under the aurora that fades out down the page
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1.4px);
+  background-position: center top;
+  background-size: 1.375rem 1.375rem;
+  -webkit-mask-image: linear-gradient(#000, transparent 60%);
+  mask-image: linear-gradient(#000, transparent 60%);
+
+  @media (prefers-reduced-transparency: reduce) {
+    display: none;
+  }
+}

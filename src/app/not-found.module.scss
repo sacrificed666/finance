@@ -1,0 +1,9 @@
+@use "@/shared/styles/mixins" as *;
+
+// The panel in the middle of the window, clear of the edges on a phone
+.page {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: 1rem;
+}

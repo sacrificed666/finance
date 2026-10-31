@@ -1,0 +1,24 @@
+@use "@/shared/styles/mixins" as *;
+
+// A column as tall as the hero allows, the chart taking what the labels leave
+.trend {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.plot {
+  position: relative;
+  margin: 0.5rem 0 0;
+  flex: 1;
+  border-bottom: 1px solid var(--color-separator);
+}
+
+.axis {
+  @include tnum;
+  margin-top: 0.375rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}

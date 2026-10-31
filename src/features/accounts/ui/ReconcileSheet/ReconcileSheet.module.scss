@@ -1,0 +1,11 @@
+@use "@/shared/styles/mixins" as *;
+
+.current {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+.amount {
+  font-weight: 600;
+  color: var(--color-text);
+}

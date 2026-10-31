@@ -1,0 +1,38 @@
+@use "@/shared/styles/mixins" as *;
+
+// A search field look-alike: a capsule with the shortcut at its end
+.button {
+  @include glass-el;
+  display: flex;
+  width: 100%;
+  min-height: 2.5rem;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius-full);
+  padding: 0.375rem 0.375rem 0.375rem 0.875rem;
+  font-size: 0.9375rem;
+  text-align: left;
+  color: var(--color-text-tertiary);
+  transition: color var(--duration-fast) ease;
+
+  @include hover {
+    color: var(--color-text-secondary);
+  }
+}
+
+.label {
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+}
+
+.shortcut {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill-strong);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  font-family: inherit;
+  color: var(--color-text-secondary);
+}

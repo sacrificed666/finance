@@ -1,0 +1,34 @@
+@use "@/shared/styles/mixins" as *;
+
+// Round like every mark, whatever it holds
+.disc {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+}
+
+// Three sizes, each with the text size of its emoji
+.sm {
+  @include text-xs;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.md {
+  @include text-sm;
+  width: 2rem;
+  height: 2rem;
+}
+
+.lg {
+  @include text-base;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+// Glass when the subject has no colour of its own
+.glass {
+  @include glass-el;
+}

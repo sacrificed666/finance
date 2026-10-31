@@ -1,0 +1,9 @@
+@use "@/shared/styles/mixins" as *;
+
+// Keeps the breakdown in the middle of a stretched card
+.breakdown {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}

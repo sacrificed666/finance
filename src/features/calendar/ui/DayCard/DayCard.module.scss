@@ -1,0 +1,13 @@
+@use "@/shared/styles/mixins" as *;
+
+.summary {
+  margin-bottom: 0.75rem;
+}
+
+.rows {
+  @include rows;
+}
+
+.quiet {
+  @include caption;
+}

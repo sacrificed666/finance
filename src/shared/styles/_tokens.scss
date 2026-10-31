@@ -1,0 +1,209 @@
+@use "sass:list";
+
+// Chart and category colours, picked to stay apart under colour blindness
+$series-light:
+  #5b4fd6, #0f8f78, #1f78c8, #c4438c, #7a55d0, #b8612f, #11839a, #86662a, #9c46be, #3a5fd0, #b24b58, #5b7a33, #85579f,
+  #9a720c;
+$series-dark:
+  #9b8cff, #5fe0bf, #74c0ff, #ff8cc6, #b79cff, #ffb38a, #7fd6e8, #d6b37a, #e08fff, #6f9bff, #f2a0a8, #a8c78a, #c7a0e8,
+  #ffd27a;
+$series-count: list.length($series-light);
+
+// One custom property per series colour
+@mixin series($palette) {
+  @for $i from 1 through $series-count {
+    --series-#{$i}: #{list.nth($palette, $i)};
+  }
+}
+
+// Font, radii, blur, motion and the page tones, the same in both themes
+@mixin shared {
+  --font-sans:
+    var(--font-montserrat), -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --radius-lg: 1.375rem;
+  --radius-xl: 1.625rem;
+  --radius-full: 999px;
+
+  // Two heights for every control: fields and buttons in forms, and in toolbars
+  --control-md: 2.75rem;
+  --control-sm: 2.25rem;
+
+  // Everything inside a card, hero or sheet: tiles, rows, panels, tables
+  --radius-in-card: 0.875rem;
+  --radius-in-panel: 0.875rem;
+  --card-padding: 1rem;
+
+  --glass-blur: 18px;
+  --glass-blur-thick: 30px;
+
+  --ease-out: cubic-bezier(0.22, 0.68, 0.24, 1);
+  --ease-spring: linear(
+    0,
+    0.009,
+    0.035 2.1%,
+    0.141 4.4%,
+    0.723 12.9%,
+    0.938 16.7%,
+    1.017,
+    1.077 22.4%,
+    1.121 25.4%,
+    1.14 28.4%,
+    1.133 31.7%,
+    1.104 35.5%,
+    1.035 43.6%,
+    1.005 48.5%,
+    0.988 54.6%,
+    0.993 73.8%,
+    1
+  );
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+  --duration-slow: 600ms;
+
+  // One colour per page, one pastel family, for its disc in the menus
+  --tone-dashboard: #c6f35e;
+  --tone-calendar: #ffa47e;
+  --tone-reports: #9aa5ff;
+  --tone-expenses: #ff7a5c;
+  --tone-income: #5fe0bf;
+  --tone-accounts: #74c0ff;
+  --tone-investments: #b79cff;
+  --tone-forecast: #ffc456;
+  --tone-profile: #ff8cc6;
+  --tone-settings: #c3c3cb;
+  --tone-ink: #0b0c08;
+
+  // Line heights the browser divides itself, as a minifier would round them
+  --leading-xs: calc(1 / 0.75);
+  --leading-sm: calc(1.25 / 0.875);
+  --leading-lg: calc(1.75 / 1.125);
+  --leading-xl: calc(1.75 / 1.25);
+  --leading-2xl: calc(2 / 1.5);
+}
+
+// Text, accent, money colours, tiles and backdrop of the light theme
+@mixin light {
+  color-scheme: light;
+
+  --color-backdrop: #f3f3ef;
+  --color-text: #0f0f12;
+  --color-text-secondary: #46464e;
+  --color-text-tertiary: #606068;
+  --color-separator: rgb(15 15 18 / 0.09);
+  --color-fill: rgb(15 15 18 / 0.045);
+  --color-fill-strong: rgb(15 15 18 / 0.08);
+  --color-fill-stripe: rgb(15 15 18 / 0.03);
+  --color-fill-hover: rgb(15 15 18 / 0.07);
+  --color-fill-press: rgb(15 15 18 / 0.13);
+  --color-chart-grid: rgb(15 15 18 / 0.08);
+  --color-focus: rgb(74 117 0 / 0.7);
+
+  // Lime fills buttons; text in the accent is a deep olive that reads on white
+  --color-accent: #4a7500;
+  --color-accent-strong: #3e6300;
+  --color-accent-fill: #c6f35e;
+  --color-accent-gradient: linear-gradient(180deg, #d3f97a, #bdec4f);
+  --color-accent-soft: rgb(140 196 20 / 0.18);
+  --color-accent-glow: rgb(160 214 40 / 0.4);
+  --color-accent-glow-deep: rgb(120 170 20 / 0.18);
+  --color-on-accent: #0b0d05;
+  --color-income: #4a7500;
+  --color-expense: #c4381c;
+  --color-warning: #875200;
+
+  // Tiles: white on the warm paper, a hairline edge
+  --glass-tint: #ffffff;
+  --glass-tint-content: #ffffff;
+  --glass-tint-strong: rgb(250 250 247 / 0.86);
+  --glass-tint-overlay: #ffffff;
+  --glass-solid: #ffffff;
+  --glass-sheen: transparent;
+  --glass-rim: rgb(255 255 255 / 0.9);
+  --glass-rim-shade: rgb(15 15 18 / 0.08);
+  --glass-highlight: transparent;
+  --glass-under-edge: transparent;
+  --glass-hairline: rgb(15 15 18 / 0.08);
+  --glass-top: rgb(255 255 255 / 0.9);
+  --glass-shadow: 0 1px 2px rgb(15 15 18 / 0.04);
+  --glass-saturate: 140%;
+
+  // The backdrop: an aurora of lime and the page's colour, a dot grid
+  --aurora-mix: 34%;
+  --aurora-mix-soft: 22%;
+  --dot-color: rgb(15 15 18 / 0.09);
+
+  // Category tiles: a tint of the series colour with the text's ink on it
+  --series-fill-mix: 24%;
+  --color-on-series: var(--color-text);
+
+  @include series($series-light);
+}
+
+// Text, accent, money colours, tiles and backdrop of the dark theme
+@mixin dark {
+  color-scheme: dark;
+
+  --color-backdrop: #09090b;
+  --color-text: #f4f4f1;
+  --color-text-secondary: #ababb2;
+  --color-text-tertiary: #95959d;
+  --color-separator: rgb(255 255 255 / 0.07);
+  --color-fill: rgb(255 255 255 / 0.05);
+  --color-fill-strong: rgb(255 255 255 / 0.09);
+  --color-fill-stripe: rgb(255 255 255 / 0.03);
+  --color-fill-hover: rgb(255 255 255 / 0.08);
+  --color-fill-press: rgb(255 255 255 / 0.16);
+  --color-chart-grid: rgb(255 255 255 / 0.08);
+  --color-focus: rgb(198 243 94 / 0.8);
+
+  --color-accent: #c6f35e;
+  --color-accent-strong: #b2e04a;
+  --color-accent-fill: #c6f35e;
+  --color-accent-gradient: linear-gradient(180deg, #d3f97a, #bdec4f);
+  --color-accent-soft: rgb(198 243 94 / 0.14);
+  --color-accent-glow: rgb(198 243 94 / 0.26);
+  --color-accent-glow-deep: rgb(150 200 40 / 0.16);
+  --color-on-accent: #0b0d05;
+  --color-income: #c6f35e;
+  --color-expense: #ff7a5c;
+  --color-warning: #ffc456;
+
+  // Tiles: flat ink a step above the backdrop, a hairline edge
+  --glass-tint: #121215;
+  --glass-tint-content: #121215;
+  --glass-tint-strong: rgb(16 16 19 / 0.84);
+  --glass-tint-overlay: #151518;
+  --glass-solid: #121215;
+  --glass-sheen: transparent;
+  --glass-rim: rgb(255 255 255 / 0.1);
+  --glass-rim-shade: rgb(0 0 0 / 0.45);
+  --glass-highlight: transparent;
+  --glass-under-edge: transparent;
+  --glass-hairline: rgb(255 255 255 / 0.065);
+  --glass-top: rgb(255 255 255 / 0.06);
+  --glass-shadow: 0 0 0 transparent;
+  --glass-saturate: 130%;
+
+  // The backdrop: an aurora of lime and the page's colour, a dot grid
+  --aurora-mix: 18%;
+  --aurora-mix-soft: 12%;
+  --dot-color: rgb(255 255 255 / 0.07);
+
+  // Category tiles: the series colour itself with ink on it
+  --series-fill-mix: 100%;
+  --color-on-series: #0b0c08;
+
+  @include series($series-dark);
+}
+
+// Solid chrome for people who ask for less transparency, light theme
+@mixin solid-light {
+  --glass-tint-strong: #fafaf7;
+}
+
+// Solid chrome for people who ask for less transparency, dark theme
+@mixin solid-dark {
+  --glass-tint-strong: #101013;
+}

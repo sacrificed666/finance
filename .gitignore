@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Build output and caches
+/.next/
+/out/
+/build/
+next-env.d.ts
+*.tsbuildinfo
+.turbo/
+.vercel/
+.swc/
+
+# Test reports
+/coverage/
+/test-results/
+/playwright-report/
+/blob-report/
+/lighthouse-live/
+
+# Environment files and keys; only the example is shared
+.env
+.env.*
+!.env.example
+*.pem
+
+# Database dumps and data folders
+/backups/
+*.dump
+*.sql.gz
+pgdata/
+
+# Editors and assistants
+.claude/
+.vscode/
+.idea/
+.fleet/
+.zed/
+*.swp
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

@@ -1,0 +1,72 @@
+@use "@/shared/styles/mixins" as *;
+
+.pills {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-inline: 0;
+  border: 0;
+  padding: 0;
+}
+
+// The legend and the radios, there for assistive technology only
+.hidden {
+  @include visually-hidden;
+}
+
+.pill {
+  position: relative;
+  display: flex;
+  min-height: var(--control-sm);
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.375rem;
+  white-space: nowrap;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  padding-inline: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.active {
+  border-color: var(--color-accent-fill);
+  background-color: var(--color-accent-soft);
+  color: var(--color-text);
+
+  .count {
+    background-color: var(--color-accent-fill);
+    color: var(--color-on-accent);
+  }
+}
+
+.idle {
+  @include glass-el;
+  border-color: var(--color-separator);
+  color: var(--color-text-secondary);
+
+  @include hover {
+    color: var(--color-text);
+  }
+}
+
+// The ring of the pill whose radio has the keyboard focus
+.pill:has(:focus-visible) {
+  box-shadow: 0 0 0 2px var(--color-accent-soft);
+}
+
+// The number of records behind a pill
+.count {
+  @include tnum;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill-strong);
+  padding: 1px 0.375rem;
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}

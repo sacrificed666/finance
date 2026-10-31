@@ -1,0 +1,55 @@
+@use "@/shared/styles/mixins" as *;
+
+.hint {
+  @include caption;
+  margin-bottom: 0.5rem;
+}
+
+.rows {
+  @include rows;
+}
+
+.row {
+  @include row-tap;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.route {
+  @include truncate;
+  @include text-xs;
+  @include mono;
+  min-width: 0;
+  color: var(--color-text);
+}
+
+.when {
+  @include tnum;
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.message {
+  @include text-xs;
+  margin-top: 0.125rem;
+  display: block;
+  color: var(--color-text-secondary);
+}
+
+.whole {
+  overflow-wrap: break-word;
+}
+
+.short {
+  @include truncate;
+}

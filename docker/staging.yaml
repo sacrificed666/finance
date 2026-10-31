@@ -1,0 +1,43 @@
+# Production build on a database of its own, to try a release first
+name: finance-staging
+
+services:
+  db:
+    # POSTGRES_PORT opens the database to psql on this computer only
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+    restart: unless-stopped
+    # Rotates the logs at 10 MB, keeping three files
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  app:
+    image: finance:staging
+    build:
+      target: runtime
+      args:
+        APP_ENV: staging
+    # Settings and keys, read when the container starts
+    env_file: .env.staging
+    # APP_ENV names the environment in the server logs
+    environment:
+      APP_ENV: staging
+    # Only this computer reaches staging; APP_HOST and APP_PORT change that
+    ports:
+      - "${APP_HOST:-127.0.0.1}:${APP_PORT:-3001}:3000"
+    # Comes back after a crash or a reboot
+    restart: unless-stopped
+    # Locked down: no privileges and bounded resources
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: [/tmp]
+    pids_limit: 200
+    mem_limit: 768m
+    cpus: 1
+    # Rotates the logs at 10 MB, keeping three files
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"

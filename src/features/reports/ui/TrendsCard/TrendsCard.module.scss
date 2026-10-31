@@ -1,0 +1,62 @@
+@use "@/shared/styles/mixins" as *;
+
+// Two a row on phones, then rows the tiles fill evenly: three and two for five
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+
+  @include from(md) {
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  }
+}
+
+// A category's tile with its year drawn along the bottom
+.tile {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem 0.75rem 3rem;
+
+  // The last one fills what its row leaves, so no row ends in a gap
+  &:last-child {
+    grid-column: span var(--span-phone, 1);
+
+    @include from(md) {
+      grid-column: span var(--span, 1);
+    }
+  }
+}
+
+.head {
+  @include text-xs;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-text-tertiary);
+}
+
+.name {
+  @include truncate;
+}
+
+.value {
+  @include num-sm;
+  margin-top: 0.125rem;
+  color: var(--color-text);
+}
+
+.note {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.above {
+  color: var(--color-expense);
+}
+
+.below {
+  color: var(--color-income);
+}

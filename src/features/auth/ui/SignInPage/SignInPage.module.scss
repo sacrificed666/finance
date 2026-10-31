@@ -1,0 +1,198 @@
+@use "@/shared/styles/mixins" as *;
+
+// One column on phones; from laptops the story on the left and the form on the right
+.page {
+  position: relative;
+  margin-inline: auto;
+  display: grid;
+  min-height: 100svh;
+  width: 100%;
+  max-width: 28rem;
+  align-content: center;
+  gap: 1.5rem;
+  padding: 4rem 1rem 3rem;
+
+  @include from(lg) {
+    max-width: 68rem;
+    grid-template-columns: minmax(0, 1fr) 26rem;
+    align-items: center;
+    gap: 4rem;
+    padding-inline: 2rem;
+  }
+}
+
+// The brand, a line about the app and what it keeps, the last only on laptops
+.story {
+  min-width: 0;
+}
+
+.headline {
+  display: none;
+
+  @include from(lg) {
+    display: block;
+    margin-top: 2.5rem;
+    max-width: 16ch;
+    font-size: clamp(2.5rem, 1.6rem + 2vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+    color: var(--color-text);
+  }
+}
+
+.features {
+  display: none;
+
+  @include from(lg) {
+    @include stagger;
+    display: grid;
+    margin-top: 2.25rem;
+    gap: 1rem;
+  }
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.featureMark {
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+}
+
+.featureName {
+  display: block;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.featureText {
+  @include text-sm;
+  display: block;
+  color: var(--color-text-secondary);
+}
+
+// The form with the switch to the other page and the privacy line under it
+.panel {
+  min-width: 0;
+}
+
+.language {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 40;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+// The brand mark with a soft lime light under it
+.mark {
+  flex-shrink: 0;
+  filter: drop-shadow(0 6px 14px rgb(160 214 40 / 0.35));
+}
+
+.names {
+  min-width: 0;
+}
+
+.title {
+  @include truncate;
+  font-size: 1.75rem;
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--color-text);
+}
+
+.subtitle {
+  @include truncate;
+  @include text-sm;
+  color: var(--color-text-tertiary);
+}
+
+.form {
+  @include space-y(1rem);
+}
+
+.hint {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+.error {
+  @include text-sm;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-radius: var(--radius-in-card);
+  background-color: color-mix(in oklab, var(--color-expense) 12%, transparent);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-expense);
+}
+
+.errorIcon {
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.wide {
+  width: 100%;
+}
+
+// "or" between two hairlines
+.or {
+  margin-block: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rule {
+  height: 1px;
+  flex: 1;
+  background-color: var(--color-separator);
+}
+
+.orText {
+  @include caption;
+}
+
+.others {
+  @include space-y(0.5rem);
+}
+
+.switch {
+  @include text-sm;
+  margin-top: 1.25rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.link {
+  font-weight: 600;
+  color: var(--color-accent);
+  text-underline-offset: 4px;
+
+  @include hover {
+    text-decoration-line: underline;
+  }
+}
+
+.privacy {
+  @include text-xs;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  color: var(--color-text-tertiary);
+}

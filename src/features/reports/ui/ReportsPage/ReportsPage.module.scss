@@ -1,0 +1,39 @@
+@use "@/shared/styles/mixins" as *;
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  @include hide-in-print;
+}
+
+// The two ends of a chosen range, side by side from tablets up
+.range {
+  display: grid;
+  gap: 0.75rem;
+  @include hide-in-print;
+
+  @include from(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.exports {
+  display: flex;
+  gap: 0.5rem;
+}
+
+// The downloads: round icons on phones, so the header keeps one row
+.export {
+  @include below(sm) {
+    width: var(--control-md);
+    padding-inline: 0;
+  }
+}
+
+.exportLabel {
+  @include below(sm) {
+    display: none;
+  }
+}

@@ -1,0 +1,447 @@
+@use "@/shared/styles/mixins" as *;
+
+.toolbar {
+  margin-bottom: 0.5rem;
+}
+
+// The kind filter fills a phone's row and keeps its width from small tablets
+.kinds {
+  flex: 1 0 auto;
+
+  @include from(sm) {
+    flex: none;
+  }
+}
+
+.shrink {
+  flex-shrink: 0;
+}
+
+// The period: in the toolbar from small tablets, in the Filters panel on phones
+.wideOnly {
+  display: none;
+
+  @include from(sm) {
+    display: contents;
+  }
+}
+
+.phoneOnly {
+  @include from(sm) {
+    display: none;
+  }
+}
+
+.morePeriods {
+  margin-bottom: 0.5rem;
+}
+
+// The Filters button while its panel is open, and the count of filters it holds
+.moreOpen {
+  background-color: var(--color-fill-strong);
+}
+
+.moreCount {
+  @include tnum;
+  display: inline-flex;
+  min-width: 1.125rem;
+  height: 1.125rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-fill);
+  padding-inline: 0.3125rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--color-on-accent);
+}
+
+// Phones show a count that adds a period other than the month; readers hear the first
+.countWide {
+  @include below(sm) {
+    @include visually-hidden;
+  }
+}
+
+.countPhone {
+  @include from(sm) {
+    display: none;
+  }
+}
+
+// The folded filters: category, account, tag and timing
+.more {
+  @include unfold;
+  margin-bottom: 0.625rem;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.5rem;
+}
+
+.moreRow {
+  margin-bottom: 0;
+}
+
+// The count and net of the shown entries, with their CSV download
+// The review queue and the saved searches, as a row of capsules
+.views {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.viewWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.view {
+  @include text-xs;
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+  padding: 0.25rem 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+
+  @include hover {
+    background-color: var(--color-fill-hover);
+    color: var(--color-text);
+  }
+}
+
+// A chosen view takes the accent fill
+.viewOn {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+
+  @include hover {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+}
+
+.reviewView {
+  color: var(--color-text);
+}
+
+.viewCount {
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  padding: 0 0.375rem;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-on-accent);
+}
+
+.viewAdd {
+  background-color: transparent;
+}
+
+.viewRemove {
+  display: inline-grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: var(--radius-full);
+  color: var(--color-text-tertiary);
+
+  @include hover {
+    color: var(--color-text);
+  }
+}
+
+.viewForm {
+  display: flex;
+  flex: 1 1 18rem;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.newBadge {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-soft);
+  padding-inline: 0.375rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.summary {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-inline: 0.25rem;
+}
+
+.count {
+  @include tnum;
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.positive {
+  color: var(--color-income);
+}
+
+.negative {
+  color: var(--color-expense);
+}
+
+// What to do with the shown entries: pick some, or download them
+.tools {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tool {
+  @include text-xs;
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.625rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+
+  @include hover {
+    background-color: var(--color-fill-hover);
+    color: var(--color-text);
+  }
+}
+
+// The picking mode is on: its button turns into Done
+.toolOn {
+  background-color: var(--color-accent-fill);
+  color: var(--color-on-accent);
+
+  @include hover {
+    background-color: var(--color-accent-fill);
+    color: var(--color-on-accent);
+  }
+}
+
+.rows {
+  @include rows;
+}
+
+.days {
+  @include space-y(0.75rem);
+}
+
+.planned {
+  opacity: 0.75;
+}
+
+.dayHead {
+  @include group-head;
+  @include sticky-head;
+}
+
+.dayTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weekday {
+  color: var(--color-text);
+}
+
+.date {
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.plannedBadge {
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-soft);
+  padding: 1px 0.375rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.dayNet {
+  @include tnum;
+  flex-shrink: 0;
+}
+
+.dayRows {
+  @include rows;
+  margin-top: 0.25rem;
+}
+
+.row {
+  @include row-tap;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.ticked {
+  background-color: var(--color-accent-soft);
+}
+
+// The tick box of a row while picking
+.tick {
+  display: grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid color-mix(in oklab, var(--color-text-tertiary) 60%, transparent);
+  border-radius: var(--radius-full);
+  color: transparent;
+}
+
+.tickOn {
+  border-color: transparent;
+  background-color: var(--color-accent-fill);
+  color: var(--color-on-accent);
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  @include text-sm;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.titleText {
+  @include truncate;
+}
+
+.receipt {
+  display: flex;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.hidden {
+  @include visually-hidden;
+}
+
+.splitBadge {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+  padding-inline: 0.375rem;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.meta {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.transfer {
+  color: var(--color-text-secondary);
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.expense {
+  color: var(--color-expense);
+}
+
+// Sticks to the bottom of the screen above the phone's tab bar while picking
+.bulk {
+  @include glass-solid;
+  @include space-y(0.5rem);
+  position: sticky;
+  bottom: 5rem;
+  z-index: 10;
+  margin-top: 0.75rem;
+  border-radius: var(--radius-in-card);
+  padding: 0.625rem;
+
+  @include from(md) {
+    bottom: 0.75rem;
+  }
+}
+
+.bulkHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.bulkCount {
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.bulkActions {
+  display: grid;
+  gap: 0.5rem;
+
+  @include from(sm) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+.tagForm {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.tagField {
+  min-width: 0;
+  flex: 1;
+}
+
+.tagButton {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.bulkDelete {
+  justify-self: start;
+  white-space: nowrap;
+}

@@ -1,0 +1,60 @@
+@use "@/shared/styles/mixins" as *;
+
+.rows {
+  @include rows;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.device {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  color: var(--color-text);
+}
+
+.how {
+  @include caption;
+  @include truncate;
+  display: block;
+}
+
+.side {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.125rem;
+}
+
+.when {
+  @include tnum;
+  @include text-xs;
+  color: var(--color-text-secondary);
+}
+
+// The button that shows the older sign-ins, centred under the list
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.flipped {
+  rotate: 180deg;
+}
+
+// Rows in outline while the sign-ins load
+.loading {
+  display: block;
+}

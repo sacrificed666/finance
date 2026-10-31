@@ -1,0 +1,57 @@
+@use "@/shared/styles/mixins" as *;
+
+.rows {
+  @include rows;
+}
+
+// A week that opens its first day, or today in the current one
+.row {
+  @include row-tap;
+  display: grid;
+  width: 100%;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+// The week and its spending, then the meter with any money that came in
+.line {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.range {
+  @include truncate;
+  @include text-sm;
+  min-width: 0;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.spent {
+  @include tnum;
+  @include text-sm;
+  margin-left: auto;
+  flex-shrink: 0;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.out {
+  color: var(--color-expense);
+}
+
+.meter {
+  min-width: 0;
+  flex: 1;
+}
+
+// Money that came in that week, beside the meter
+.earned {
+  @include tnum;
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-income);
+}

@@ -1,0 +1,124 @@
+@use "@/shared/styles/mixins" as *;
+
+.picker {
+  position: relative;
+}
+
+.full {
+  width: 100%;
+}
+
+.button {
+  @include glass-el;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-separator);
+  text-align: left;
+  color: var(--color-text);
+  outline: none;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  @include hover {
+    border-color: color-mix(in oklab, var(--color-text-tertiary) 28%, var(--color-separator));
+  }
+
+  @include focus-ring;
+}
+
+// Beside the sign-in form
+.compact {
+  min-height: 2.5rem;
+  padding-inline: 0.75rem 0.375rem;
+  @include text-sm;
+}
+
+// A full-width field in the settings
+.large {
+  min-height: 2.75rem;
+  width: 100%;
+  padding-inline: 0.875rem 0.375rem;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  @include from(sm) {
+    font-size: 15px;
+  }
+}
+
+.name {
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+}
+
+// The chevron on a small disc, as every select and picker has it
+.chevron {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill-strong);
+  color: var(--color-text-secondary);
+}
+
+.turn {
+  transition-property: transform, translate, scale, rotate;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.chevronOpen {
+  rotate: 180deg;
+}
+
+.list {
+  @include glass-strong;
+  @include pop-in;
+  position: absolute;
+  right: 0;
+  z-index: 50;
+  margin-top: 0.375rem;
+  max-height: 20rem;
+  min-width: 220px;
+  overflow-y: auto;
+  border-radius: var(--radius-lg);
+  padding: 0.375rem;
+  outline: none;
+}
+
+.option {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: calc(var(--radius-lg) - 0.375rem);
+  padding: 0.5rem 0.75rem;
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+// The option the arrow keys or the pointer are on
+.activeOption {
+  background-color: var(--color-fill-hover);
+}
+
+.selected {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.english {
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.check {
+  color: var(--color-accent);
+}

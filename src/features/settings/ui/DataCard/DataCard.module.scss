@@ -1,0 +1,71 @@
+@use "@/shared/styles/mixins" as *;
+
+.rows {
+  @include space-y(0.5rem);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: var(--radius-in-card);
+  padding: 0.75rem;
+}
+
+.plainRow {
+  background-color: var(--color-fill);
+}
+
+// The row that wipes everything, tinted red
+.dangerRow {
+  border: 1px solid color-mix(in oklab, var(--color-expense) 20%, transparent);
+  background-color: color-mix(in oklab, var(--color-expense) 8%, transparent);
+}
+
+.dangerIcon {
+  display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: color-mix(in oklab, var(--color-expense) 12%, transparent);
+  color: var(--color-expense);
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.dangerTitle {
+  color: var(--color-expense);
+}
+
+.caption {
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.error {
+  @include text-sm;
+  margin-top: 0.75rem;
+  color: var(--color-expense);
+}
+
+.summary {
+  @include text-sm;
+  margin-top: 0.75rem;
+  color: var(--color-income);
+}
+
+.file {
+  display: none;
+}

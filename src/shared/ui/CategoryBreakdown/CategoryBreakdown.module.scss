@@ -1,0 +1,45 @@
+@use "@/shared/styles/mixins" as *;
+
+.list {
+  @include space-y(0.5rem);
+  margin-top: 0.75rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
+.icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  min-width: 0;
+  flex: 1;
+  color: var(--color-text);
+}
+
+.share {
+  @include tnum;
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}

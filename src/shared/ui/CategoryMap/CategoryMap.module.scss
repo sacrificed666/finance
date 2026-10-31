@@ -1,0 +1,95 @@
+@use "@/shared/styles/mixins" as *;
+
+// The box the cells fill, each placed where the treemap put it
+.map {
+  position: relative;
+  margin-inline: -3px;
+}
+
+// A cell: its series colour in dark, a tint of it in light, inset by a hairline gap
+.cell {
+  @include cell-in;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 3px solid transparent;
+  border-radius: calc(var(--radius-in-card) + 3px);
+  background: color-mix(in oklab, var(--cell) var(--series-fill-mix), var(--glass-tint-content)) padding-box;
+  padding: 0.625rem 0.75rem;
+  color: var(--color-on-series);
+
+  @media (forced-colors: active) {
+    border-color: CanvasText;
+  }
+}
+
+// A small cell keeps its figure clear of the edges
+.tight {
+  padding: 0.375rem 0.5rem;
+}
+
+.iconOnly {
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+// A tile that narrows a list or opens one: it brightens under the pointer
+.live {
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition:
+    opacity var(--duration-fast) ease,
+    filter var(--duration-fast) ease;
+
+  @media (hover: hover) {
+    &:hover {
+      filter: brightness(1.08) saturate(1.1);
+    }
+  }
+}
+
+// While one tile is chosen the others fade
+.faded {
+  opacity: 0.35;
+}
+
+.name {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.icon {
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.label {
+  @include truncate;
+  min-width: 0;
+}
+
+.share {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.amount {
+  @include tnum;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.small {
+  @include tnum;
+  font-size: 0.75rem;
+  font-weight: 800;
+}

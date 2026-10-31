@@ -1,0 +1,17 @@
+@use "@/shared/styles/mixins" as *;
+
+.field {
+  display: block;
+}
+
+.label {
+  @include label;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.hint {
+  @include caption;
+  margin-top: 0.25rem;
+  display: block;
+}

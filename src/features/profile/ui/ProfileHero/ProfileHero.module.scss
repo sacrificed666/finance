@@ -1,0 +1,196 @@
+@use "@/shared/styles/mixins" as *;
+
+// The avatar beside the name, the address, the facts and the about line
+.lead {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.initial {
+  @include btn-gradient;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-weight: 900;
+}
+
+.picture {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.who {
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  @include num-md;
+  @include truncate;
+  color: var(--color-text);
+}
+
+.email {
+  @include text-sm;
+  @include clamp(2);
+  margin-top: 0.25rem;
+  color: var(--color-text-secondary);
+}
+
+.facts {
+  @include text-xs;
+  margin-top: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  color: var(--color-text-tertiary);
+}
+
+.fact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.website {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+  color: var(--color-accent);
+
+  @include hover {
+    text-decoration-line: underline;
+  }
+}
+
+.about {
+  @include text-xs;
+  margin-top: 0.375rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--color-text-secondary);
+}
+
+.level {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+// The level in a ring that fills with the way to the next one
+.ring {
+  position: relative;
+  display: flex;
+  width: 7rem;
+  height: 7rem;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: conic-gradient(var(--color-accent) calc(var(--p) * 1%), var(--color-fill) 0);
+}
+
+.ringFace {
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--glass-tint-strong);
+}
+
+.ringLabel {
+  position: relative;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.ringValue {
+  position: relative;
+  font-size: 2.25rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+.levelText {
+  min-width: 0;
+  flex: 1;
+}
+
+.rank {
+  @include num-md;
+  color: var(--color-text);
+}
+
+.xp {
+  @include tnum;
+  @include text-sm;
+  margin-top: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+.meter {
+  margin-top: 0.625rem;
+}
+
+.toNext {
+  @include tnum;
+  @include text-xs;
+  margin-top: 0.375rem;
+  color: var(--color-text-tertiary);
+}
+
+.nextRank {
+  @include text-xs;
+  margin-top: 0.125rem;
+  color: var(--color-text-tertiary);
+}
+
+.sources {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+
+  @include from(sm) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.source {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.5rem 0.75rem;
+}
+
+.sourceName {
+  @include text-xs;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-text-tertiary);
+}
+
+.sourceXp {
+  @include tnum;
+  @include text-sm;
+  margin-top: 0.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}

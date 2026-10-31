@@ -1,0 +1,69 @@
+@use "@/shared/styles/mixins" as *;
+
+.monthly {
+  @include caption;
+  margin-top: 0.5rem;
+}
+
+.title {
+  @include card-title;
+  margin-bottom: 0.5rem;
+}
+
+.rows {
+  @include rows;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+// A goal of its own opens on a tap
+button.row {
+  @include row-tap;
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.share {
+  @include tnum;
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.meter {
+  margin-top: 0.375rem;
+  display: block;
+}
+
+.amounts {
+  @include tnum;
+  @include truncate;
+  @include text-xs;
+  margin-top: 0.25rem;
+  display: block;
+  color: var(--color-text-tertiary);
+}

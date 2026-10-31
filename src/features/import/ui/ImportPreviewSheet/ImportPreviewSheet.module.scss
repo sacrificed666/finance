@@ -1,0 +1,119 @@
+@use "@/shared/styles/mixins" as *;
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.found {
+  @include caption;
+}
+
+.empty {
+  @include text-sm;
+  padding-block: 1.5rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.rows {
+  @include rows;
+}
+
+// An operation: tick and text, then its category and amount under it on phones
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+
+  @include from(sm) {
+    grid-template-columns: auto minmax(0, 1fr) 12rem 7rem;
+  }
+}
+
+.off {
+  opacity: 0.55;
+}
+
+.tick {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-accent);
+}
+
+.what {
+  min-width: 0;
+}
+
+.description {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  color: var(--color-text);
+}
+
+.meta {
+  @include text-xs;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-text-tertiary);
+}
+
+// The second line on phones, its own column from small tablets
+@mixin under-on-phones {
+  grid-column-start: 2;
+
+  @include from(sm) {
+    grid-column-start: auto;
+  }
+}
+
+.category {
+  @include under-on-phones;
+}
+
+.transferLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  line-height: 1.375;
+  color: var(--color-text-secondary);
+}
+
+.accounts {
+  min-width: 0;
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  @include under-on-phones;
+  text-align: right;
+  font-weight: 600;
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.expense {
+  color: var(--color-expense);
+}
+
+.neutral {
+  color: var(--color-text-secondary);
+}
+
+.toAmount {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}

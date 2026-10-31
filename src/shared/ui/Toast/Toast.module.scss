@@ -1,0 +1,53 @@
+@use "@/shared/styles/mixins" as *;
+
+// Above the phone tab bar; centred at the bottom from tablets up
+.region {
+  position: fixed;
+  inset-inline: 0.75rem;
+  bottom: 5rem;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+
+  @include from(md) {
+    inset-inline: 0;
+    bottom: 1.5rem;
+  }
+}
+
+.toast {
+  @include glass-strong;
+  @include toast-in;
+  display: flex;
+  width: 100%;
+  max-width: 24rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-full);
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+.message {
+  @include truncate;
+  min-width: 0;
+  flex: 1;
+  @include text-sm;
+  color: var(--color-text);
+}
+
+.action {
+  flex-shrink: 0;
+}
+
+.dismiss {
+  @include icon-btn;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+// A copy of a closed toast sinking away
+.leaving {
+  @include toast-out;
+}

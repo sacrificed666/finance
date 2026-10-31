@@ -1,0 +1,9 @@
+@use "@/shared/styles/mixins" as *;
+
+// The dearest weekday in words, above the columns
+.peak {
+  @include text-sm;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}

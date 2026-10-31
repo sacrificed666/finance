@@ -1,0 +1,33 @@
+@use "@/shared/styles/mixins" as *;
+
+.delete {
+  margin-right: auto;
+}
+
+// The carry-over switch on a soft panel, explained beside it
+.rollover {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+// The limit the category's own spending suggests, a tap to take it
+.suggest {
+  @include text-xs;
+  justify-self: start;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-soft);
+  padding: 0.3rem 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+// Where part of this month's rest goes and how much, side by side from tablets up
+.move {
+  display: grid;
+  gap: 0.5rem;
+
+  @include from(sm) {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  }
+}

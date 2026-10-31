@@ -1,0 +1,204 @@
+@use "@/shared/styles/mixins" as *;
+
+// The native dialog is the panel, under the top of the screen
+.panel {
+  @include sheet-panel;
+  @include glass-solid;
+  position: fixed;
+  inset: 8vh 0 auto;
+  width: calc(100% - 1.5rem);
+  max-width: 36rem;
+  max-height: 76dvh;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  color: inherit;
+  outline: none;
+
+  &[open] {
+    display: flex;
+  }
+
+  // A plain dim, no blur, so typing stays fast
+  &::backdrop {
+    @include overlay-in;
+    background-color: color-mix(in oklab, #000 50%, transparent);
+  }
+
+  @include from(sm) {
+    top: 12vh;
+  }
+}
+
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-bottom: 1px solid var(--color-separator);
+  padding: 0.75rem 1rem;
+}
+
+.searchIcon {
+  color: var(--color-text-tertiary);
+}
+
+.search {
+  @include text-base;
+  min-width: 0;
+  flex: 1;
+  background-color: transparent;
+  color: var(--color-text);
+  outline: none;
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+  }
+}
+
+// The Escape key, shown where there is a keyboard
+.escape {
+  display: none;
+  flex-shrink: 0;
+  border-radius: 0.375rem;
+  background-color: var(--color-fill);
+  padding: 0.125rem 0.375rem;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+
+  @include from(sm) {
+    display: block;
+  }
+}
+
+.list {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.empty {
+  @include text-sm;
+  padding: 2rem 0.75rem;
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
+.group {
+  margin-bottom: 0.25rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.groupTitle {
+  @include card-title;
+  padding: 0.375rem 0.625rem 0.25rem;
+}
+
+.option {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius-in-card);
+  padding: 0.375rem 0.625rem;
+}
+
+// The command the arrows or the pointer are on
+.activeOption {
+  background-color: var(--color-fill-hover);
+}
+
+.glyph {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+  color: var(--color-text-secondary);
+}
+
+// Every result's disc is round, like the marks across the app
+.disc {
+  @include text-sm;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.label {
+  @include truncate;
+  @include text-sm;
+  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.hint {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.trailing {
+  @include tnum;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.here {
+  @include caption;
+}
+
+.amount {
+  @include text-sm;
+}
+
+.strong {
+  font-weight: 600;
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.expense {
+  color: var(--color-expense);
+}
+
+.muted {
+  color: var(--color-text-secondary);
+}
+
+// How to move and open, shown where there is a keyboard
+.footer {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid var(--color-separator);
+  padding: 0.5rem 1rem;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+
+  @include from(sm) {
+    display: flex;
+  }
+}
+
+.key {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}

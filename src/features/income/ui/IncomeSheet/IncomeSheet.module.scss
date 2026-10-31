@@ -1,0 +1,63 @@
+@use "@/shared/styles/mixins" as *;
+
+.delete {
+  margin-right: auto;
+}
+
+// How a day rate adds up, close under the modes
+.modeHint {
+  @include caption;
+  margin-top: -0.25rem;
+}
+
+// The tax panel on a soft background
+.tax {
+  @include space-y(0.75rem);
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.rates {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.preview {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.breakdown {
+  @include space-y(0.25rem);
+  @include text-sm;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-separator);
+  padding-bottom: 0.75rem;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.lineLabel {
+  color: var(--color-text-secondary);
+}
+
+.lineValue {
+  @include tnum;
+  color: var(--color-text);
+}
+
+.deduction {
+  color: var(--color-expense);
+}
+
+.netLabel {
+  @include label;
+  margin-bottom: 0.25rem;
+}

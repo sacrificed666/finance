@@ -1,0 +1,39 @@
+@use "@/shared/styles/mixins" as *;
+
+.track {
+  @include glass-well;
+  position: relative;
+  display: block;
+  height: 0.375rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+}
+
+// The fill grows from the start on the first screen and follows changes after
+.fill {
+  @include bar-slice;
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition-property: width;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+// The meter assistive technology reads; the bar above is what people see
+.value {
+  @include visually-hidden;
+}
+
+.fine {
+  background-color: var(--color-accent);
+}
+
+.close {
+  background-color: var(--color-warning);
+}
+
+.over {
+  background-color: var(--color-expense);
+}

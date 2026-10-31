@@ -1,0 +1,135 @@
+@use "@/shared/styles/mixins" as *;
+
+.hide {
+  @include icon-btn;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  @include hide-in-print;
+}
+
+.hint {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+// The steps as cards in the colours of their pages, side by side from tablets
+.steps {
+  @include stagger;
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+
+  @include from(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.step {
+  @include tinted-card;
+  display: flex;
+  height: 100%;
+  min-height: 11rem;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.125rem;
+  transition:
+    translate var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+
+  @media (hover: hover) {
+    &:hover {
+      translate: 0 -2px;
+    }
+  }
+
+  @include focus-ring;
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+// The step's number, large and faint in the corner
+.number {
+  @include tnum;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+  color: color-mix(in oklab, var(--tint) 45%, transparent);
+}
+
+.body {
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--color-text);
+}
+
+.meta {
+  @include text-sm;
+  margin-top: 0.25rem;
+  display: block;
+  color: var(--color-text-secondary);
+}
+
+// A finished step quiets its colour and wears a tick in place of its arrow
+.done {
+  --tint: var(--color-text-tertiary);
+}
+
+.arrow {
+  align-self: flex-end;
+  color: var(--color-text);
+  transition: translate 150ms ease;
+
+  @include hover-within(".step") {
+    translate: 0.1875rem 0;
+  }
+}
+
+.tick {
+  display: inline-flex;
+  align-self: flex-end;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-fill);
+  color: var(--color-on-accent);
+}
+
+.hidden {
+  @include visually-hidden;
+}
+
+// The way in for those who would rather bring their bank's history
+.import {
+  @include text-xs;
+  margin-top: 0.5rem;
+  display: inline-flex;
+  min-height: 1.5rem;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+
+  @include hover {
+    text-decoration-color: currentcolor;
+  }
+}

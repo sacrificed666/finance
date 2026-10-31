@@ -1,0 +1,74 @@
+@use "@/shared/styles/mixins" as *;
+
+.methods {
+  @include space-y(0.5rem);
+}
+
+// A way of signing in on a hairline frame, with its state or action
+.method {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-in-card);
+  padding: 0.75rem;
+}
+
+.methodText {
+  @include text-sm;
+  min-width: 0;
+  flex: 1;
+}
+
+.methodTitle {
+  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.status {
+  @include caption;
+}
+
+.message {
+  @include text-sm;
+  margin-top: 0.75rem;
+}
+
+.ok {
+  color: var(--color-income);
+}
+
+.failed {
+  color: var(--color-expense);
+}
+
+// A part of the card under a hairline
+@mixin section {
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-separator);
+  padding-top: 1rem;
+}
+
+.form {
+  @include space-y(1rem);
+  @include section;
+}
+
+.error {
+  @include text-sm;
+  color: var(--color-expense);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.actions {
+  @include section;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

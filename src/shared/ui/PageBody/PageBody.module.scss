@@ -1,0 +1,10 @@
+@use "@/shared/styles/mixins" as *;
+
+.body {
+  @include stagger;
+  @include space-y(0.75rem);
+
+  @include from(sm) {
+    @include space-y(1rem);
+  }
+}

@@ -1,0 +1,63 @@
+@use "@/shared/styles/mixins" as *;
+
+// An entry that opens its sheet
+.button {
+  @include row-tap;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
+.text {
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  @include text-sm;
+  @include clamp(2);
+  color: var(--color-text);
+}
+
+.subtitle {
+  @include truncate;
+  @include text-xs;
+  display: block;
+  color: var(--color-text-tertiary);
+}
+
+.amount {
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.expense {
+  color: var(--color-expense);
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.plain {
+  color: var(--color-text);
+}

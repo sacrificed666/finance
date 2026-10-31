@@ -1,0 +1,65 @@
+@use "@/shared/styles/mixins" as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+
+  @include from(md) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.tile {
+  min-width: 0;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+
+  // A last tile alone in its row of two stretches over it
+  &:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  // In rows of four, only a tile alone in the last row stretches
+  @include from(md) {
+    &:last-child:nth-child(odd) {
+      grid-column: auto;
+    }
+
+    &:last-child:nth-child(4n + 1) {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.label {
+  @include text-xs;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-text-tertiary);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.labelText {
+  @include clamp(2);
+}
+
+.value {
+  @include num-sm;
+  @include truncate;
+  margin-top: 0.25rem;
+  color: var(--color-text);
+}
+
+.sub {
+  @include tnum;
+  @include clamp(2);
+  margin-top: 0.125rem;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}

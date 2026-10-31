@@ -1,0 +1,437 @@
+@use "sass:list";
+
+// The easing of every rise, slide and sweep
+$motion-ease: cubic-bezier(0.22, 0.68, 0.24, 1);
+$stagger-delays: 0ms, 40ms, 80ms, 120ms, 160ms, 200ms, 220ms;
+
+// Rising into place once, the first time a screen draws
+@mixin rise($delay: var(--rise-delay, 0ms)) {
+  @at-root {
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  animation: rise 0.4s $motion-ease backwards;
+  animation-delay: $delay;
+
+  :root[data-entered] & {
+    animation: none;
+  }
+}
+
+// Children rising one after another, the first time a screen draws
+@mixin stagger {
+  @at-root {
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  > * {
+    animation: rise 0.42s $motion-ease backwards;
+
+    @for $i from 1 through list.length($stagger-delays) {
+      &:nth-child(#{$i}) {
+        animation-delay: list.nth($stagger-delays, $i);
+      }
+    }
+
+    &:nth-child(n + #{list.length($stagger-delays) + 1}) {
+      animation-delay: 240ms;
+    }
+  }
+
+  :root[data-entered] & > * {
+    animation: none;
+  }
+}
+
+// A chart column growing from its base
+@mixin chart-bar {
+  @at-root {
+    @keyframes bar-grow {
+      from {
+        transform: scaleY(0);
+      }
+
+      to {
+        transform: scaleY(1);
+      }
+    }
+  }
+
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: bar-grow 560ms $motion-ease both;
+  animation-delay: calc(min(var(--i, 0), 12) * 45ms);
+
+  :root[data-entered] & {
+    animation: none;
+  }
+}
+
+// A chart line drawing itself from left to right
+@mixin chart-line {
+  @at-root {
+    @keyframes line-draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+
+  stroke-dasharray: var(--len, 1200);
+  stroke-dashoffset: var(--len, 1200);
+  animation: line-draw 1s $motion-ease both;
+
+  :root[data-entered] & {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+// A chart area or label fading in after its line
+@mixin chart-fade {
+  @at-root {
+    @keyframes chart-fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  animation: chart-fade 700ms ease both;
+  animation-delay: var(--delay, 320ms);
+
+  :root[data-entered] & {
+    animation: none;
+  }
+}
+
+// A slice of a split bar sliding in from the left
+@mixin bar-slice {
+  @at-root {
+    @keyframes slice-in {
+      from {
+        transform: scaleX(0);
+      }
+
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  transform-origin: left;
+  animation: slice-in 520ms $motion-ease both;
+  animation-delay: calc(min(var(--i, 0), 8) * 70ms);
+
+  :root[data-entered] & {
+    animation: none;
+  }
+}
+
+// A bar of a strip growing up from its base, one after another
+@mixin strip-in {
+  @at-root {
+    @keyframes strip-in {
+      from {
+        opacity: 0;
+        transform: scaleY(0.2);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  transform-origin: bottom;
+  animation: strip-in 420ms $motion-ease both;
+  animation-delay: calc(min(var(--i, 0), 31) * 16ms + 120ms);
+
+  :root[data-entered] & {
+    animation: none;
+  }
+}
+
+// A tile of a map settling into its place, the largest first
+@mixin cell-in {
+  @at-root {
+    @keyframes cell-in {
+      from {
+        opacity: 0;
+        transform: scale(0.94);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  animation: cell-in 480ms $motion-ease both;
+  animation-delay: calc(min(var(--i, 0), 10) * 60ms + 100ms);
+
+  :root[data-entered] & {
+    animation: none;
+  }
+}
+
+// The dim behind a dialog fading in
+@mixin overlay-in {
+  @at-root {
+    @keyframes overlay-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  animation: overlay-in 0.2s ease both;
+}
+
+// A dialog sliding up on phones and popping in on wider screens
+@mixin sheet-panel {
+  @at-root {
+    @keyframes sheet-slide {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes sheet-pop {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  animation: sheet-slide 0.32s $motion-ease both;
+
+  @media (min-width: 40rem) {
+    animation: sheet-pop 0.26s $motion-ease both;
+  }
+}
+
+// A dialog leaving: sliding down on phones and sinking away on wider screens
+@mixin sheet-panel-out {
+  @at-root {
+    @keyframes sheet-slide-out {
+      to {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+    }
+
+    @keyframes sheet-pop-out {
+      to {
+        opacity: 0;
+        transform: translateY(8px) scale(0.97);
+      }
+    }
+  }
+
+  animation: sheet-slide-out 0.26s cubic-bezier(0.4, 0, 1, 1) both;
+
+  @media (min-width: 40rem) {
+    animation: sheet-pop-out 0.18s cubic-bezier(0.4, 0, 1, 1) both;
+  }
+}
+
+// The dim behind a dialog fading out with it
+@mixin overlay-out {
+  @at-root {
+    @keyframes overlay-out {
+      to {
+        opacity: 0;
+      }
+    }
+  }
+
+  animation: overlay-out 0.22s ease both;
+}
+
+// A popover or menu growing out of the control that opened it
+@mixin pop-in($origin: top) {
+  @at-root {
+    @keyframes pop-in {
+      from {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  transform-origin: $origin;
+  animation: pop-in 0.18s $motion-ease both;
+}
+
+// A panel or a row that a click reveals, settling into place
+@mixin unfold($delay: 0ms) {
+  @at-root {
+    @keyframes unfold {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  animation: unfold 0.24s $motion-ease both;
+  animation-delay: $delay;
+}
+
+// A floating message rising from the bottom edge
+@mixin toast-in {
+  @at-root {
+    @keyframes toast-in {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  animation: toast-in 0.36s var(--ease-spring) both;
+}
+
+// A floating message sinking away
+@mixin toast-out {
+  @at-root {
+    @keyframes toast-out {
+      to {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+      }
+    }
+  }
+
+  animation: toast-out 0.2s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+// A placeholder with a soft light sweeping across it while the data loads
+@mixin shimmer {
+  @at-root {
+    @keyframes shimmer {
+      from {
+        background-position: 150% 0;
+      }
+
+      to {
+        background-position: -50% 0;
+      }
+    }
+  }
+
+  background-image: linear-gradient(
+    100deg,
+    transparent 30%,
+    color-mix(in oklab, var(--color-text) 6%, transparent) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+// The top bar thickening its shadow once the page scrolls under it
+@mixin condense-on-scroll {
+  @at-root {
+    @keyframes condense {
+      to {
+        box-shadow:
+          inset 0 1px 0 var(--glass-top),
+          inset 0 0 0 1px var(--glass-hairline),
+          0 18px 40px -18px rgb(0 0 0 / 0.55);
+      }
+    }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    animation: condense linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 140px;
+  }
+}
+
+// A placeholder breathing while the data loads
+@mixin pulse {
+  @at-root {
+    @keyframes pulse {
+      50% {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// An icon turning round while something loads
+@mixin spin {
+  @at-root {
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  animation: spin 1s linear infinite;
+}

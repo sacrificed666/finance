@@ -1,0 +1,131 @@
+@use "@/shared/styles/mixins" as *;
+
+// A flex box, so the ring keeps no line gap under it
+.ring {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.hidden {
+  @include visually-hidden;
+}
+
+.arc {
+  transition: stroke-dasharray 600ms cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+
+.score {
+  fill: var(--color-text);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.grade {
+  min-width: 0;
+  flex: 1;
+}
+
+.gradeName {
+  @include num-md;
+}
+
+.gradeHint {
+  @include text-sm;
+  margin-top: 0.25rem;
+  color: var(--color-text-secondary);
+}
+
+.few {
+  @include text-xs;
+  margin-top: 0.375rem;
+  color: var(--color-warning);
+}
+
+.parts {
+  @include space-y(0.75rem);
+  margin-top: 1rem;
+}
+
+.partHead {
+  @include text-sm;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.partName {
+  color: var(--color-text-secondary);
+}
+
+.partScore {
+  @include tnum;
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.points {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.meter {
+  margin-top: 0.375rem;
+}
+
+.partHint {
+  margin-top: 0.25rem;
+  font-size: 11px;
+  line-height: 1.375;
+  color: var(--color-text-tertiary);
+}
+
+// The weakest parts as links to where they improve
+.tips {
+  @include space-y(0.25rem);
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-separator);
+  padding-top: 0.75rem;
+}
+
+.tipsTitle {
+  @include card-title;
+  margin-bottom: 0.25rem;
+}
+
+.tip {
+  @include row-tap;
+  @include text-sm;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  padding: 0.5rem;
+  color: var(--color-text-secondary);
+
+  @include hover {
+    color: var(--color-text);
+  }
+}
+
+.sparkle {
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.tipText {
+  min-width: 0;
+  flex: 1;
+}
+
+.chevron {
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}

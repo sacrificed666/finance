@@ -1,0 +1,9 @@
+@use "@/shared/styles/mixins" as *;
+
+// What the fixed part takes of income and how it moved, under the split
+.note {
+  @include text-xs;
+  margin-top: 0.75rem;
+  padding-inline: 0.75rem;
+  color: var(--color-text-tertiary);
+}

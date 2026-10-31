@@ -1,0 +1,145 @@
+@use "@/shared/styles/mixins" as *;
+
+// A picker with the chosen logo before it
+.picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// The chosen logo or emoji on a disc, round like the account's own mark
+.preview {
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+}
+
+.placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.select {
+  min-width: 0;
+  flex: 1;
+}
+
+.coins {
+  @include space-y(0.5rem);
+}
+
+.noCoins {
+  @include text-sm;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+// One coin on a hairline frame
+.coin {
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-in-card);
+  padding: 0.5rem;
+}
+
+.coinLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.coinMark {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+}
+
+.symbol {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.coinPicker {
+  min-width: 0;
+  flex: 1 1 11rem;
+}
+
+.coinAmount {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 8rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.grow {
+  min-width: 0;
+  flex: 1;
+}
+
+.removeCoin {
+  @include icon-btn;
+  @include icon-btn-danger;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.worth {
+  @include tnum;
+  @include caption;
+  margin-top: 0.375rem;
+  padding-inline: 0.25rem;
+}
+
+.coinActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spinning {
+  @include spin;
+}
+
+.total {
+  @include tnum;
+  @include text-sm;
+  padding-inline: 0.125rem;
+  color: var(--color-text-secondary);
+}
+
+.pricedAt {
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.error {
+  @include text-xs;
+  color: var(--color-expense);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.action {
+  flex: 1;
+}

@@ -1,0 +1,64 @@
+@use "@/shared/styles/mixins" as *;
+
+// A glass tile in the middle of the page, lit from below like every headline
+.panel {
+  @include glass;
+  @include glow;
+  margin-inline: auto;
+  max-width: 36rem;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+
+  @include from(sm) {
+    padding: 2rem;
+  }
+}
+
+.mark {
+  margin: 0 auto 0.75rem;
+  display: flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+  color: var(--color-text-tertiary);
+}
+
+.title {
+  @include text-lg;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.body {
+  @include text-sm;
+  margin-top: 0.5rem;
+  color: var(--color-text-secondary);
+
+  code {
+    color: var(--color-text);
+  }
+}
+
+// What went wrong in the words of the server, small and wrapped anywhere
+.detail {
+  @include text-xs;
+  margin-top: 0.75rem;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.5rem 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+// The ways on, side by side and wrapping on narrow screens
+.actions {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}

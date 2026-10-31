@@ -1,0 +1,59 @@
+@use "@/shared/styles/mixins" as *;
+
+.text {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.qr {
+  border-radius: var(--radius-in-card);
+  background-color: #fff;
+}
+
+// The secret key, selected whole with one click
+.secret {
+  @include tnum;
+  @include text-sm;
+  @include mono;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.5rem 0.75rem;
+  letter-spacing: 0.05em;
+  word-break: break-all;
+  color: var(--color-text);
+  user-select: all;
+}
+
+// The QR code and the fields in outline while the key is made
+.loading {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.codes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.code {
+  @include tnum;
+  @include text-sm;
+  @include mono;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

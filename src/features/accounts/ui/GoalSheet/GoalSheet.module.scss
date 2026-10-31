@@ -1,0 +1,37 @@
+@use "@/shared/styles/mixins" as *;
+
+.delete {
+  margin-right: auto;
+}
+
+// The accounts that count towards the goal, each a capsule to tap
+.accounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.account {
+  @include text-sm;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+  padding: 0.375rem 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+
+  @include hover {
+    background-color: var(--color-fill-hover);
+    color: var(--color-text);
+  }
+}
+
+// A counted account takes the accent fill
+.accountOn {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+
+  @include hover {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+}

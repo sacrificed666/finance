@@ -1,0 +1,69 @@
+# Dev server with hot reload, run with: up --watch
+name: finance-development
+
+services:
+  db:
+    # POSTGRES_PORT opens the database to psql on this computer only
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    # Comes back with Docker after a reboot
+    restart: unless-stopped
+
+  app:
+    image: finance:development
+    build:
+      target: development
+    # Settings and keys, read when the container starts
+    env_file:
+      - path: .env
+        required: false
+      - path: .env.local
+        required: false
+    # APP_ENV names the environment in the logs; Turbopack keeps no disk cache here
+    environment:
+      APP_ENV: development
+      TURBOPACK_DISK_CACHE: "off"
+    # This computer only; APP_HOST=0.0.0.0 opens it to a phone on the same network
+    ports:
+      - "${APP_HOST:-127.0.0.1}:${APP_PORT:-3000}:3000"
+    # Comes back with Docker after a reboot
+    restart: unless-stopped
+    # Syncs edits into the container, not test reports; a new lockfile rebuilds it
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - node_modules/
+            - .next/
+            - coverage/
+            - test-results/
+            - playwright-report/
+            - tsconfig.tsbuildinfo
+        - action: rebuild
+          path: package-lock.json
+
+  # The data here is real: a dump a day, at noon while the laptop is awake, two weeks kept
+  backup:
+    image: finance-backup:development
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: backup
+    # Only what the dumps need: never the app's keys
+    environment:
+      PGHOST: db
+      PGUSER: ${POSTGRES_USER:-finance}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-finance}
+      PGDATABASE: ${POSTGRES_DB:-finance_tracker}
+      TZ: ${TZ:-Europe/Kyiv}
+      BACKUP_HOUR: ${DEV_BACKUP_HOUR:-12}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+      BACKUP_PREFIX: dev
+    volumes:
+      - ./backups:/backups
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped

@@ -1,0 +1,74 @@
+@use "@/shared/styles/mixins" as *;
+
+.grid {
+  display: grid;
+  min-inline-size: 0;
+  gap: 0.5rem;
+  margin-inline: 0;
+  border: 0;
+  padding: 0;
+}
+
+// The legend and the radios, there for assistive technology only
+.hidden {
+  @include visually-hidden;
+}
+
+.chip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  cursor: default;
+  user-select: none;
+  transition-property: background-color, border-color, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:active {
+    scale: 0.95;
+  }
+}
+
+.md {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  @include text-lg;
+}
+
+.active {
+  border-color: var(--color-accent-fill);
+  background-color: var(--color-accent-fill);
+  color: var(--color-on-accent);
+  box-shadow: 0 2px 10px var(--color-accent-glow);
+
+  &:has(:focus-visible) {
+    box-shadow:
+      0 0 0 4px var(--color-accent-soft),
+      0 2px 10px var(--color-accent-glow);
+  }
+}
+
+.idle {
+  @include glass-el;
+  border-color: var(--color-separator);
+
+  @include hover {
+    border-color: color-mix(in oklab, var(--color-text-tertiary) 28%, var(--color-separator));
+    background-color: var(--color-fill-hover);
+  }
+
+  &:has(:focus-visible) {
+    box-shadow: 0 0 0 4px var(--color-accent-soft);
+  }
+}

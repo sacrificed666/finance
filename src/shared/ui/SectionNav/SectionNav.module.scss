@@ -1,0 +1,58 @@
+@use "@/shared/styles/mixins" as *;
+
+// A capsule of chips that stays under the bars while the page scrolls
+.nav {
+  position: sticky;
+  top: 3.75rem;
+  z-index: 30;
+  display: flex;
+
+  @include from(md) {
+    top: 4.75rem;
+  }
+
+  @include hide-in-print;
+}
+
+// One row that scrolls sideways on narrow phones instead of wrapping
+.list {
+  @include glass-strong;
+  display: flex;
+  max-width: 100%;
+  gap: 0.125rem;
+  overflow-x: auto;
+  border-radius: var(--radius-full);
+  padding: 0.3125rem;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.chip {
+  display: flex;
+  min-height: 2.25rem;
+  align-items: center;
+  border-radius: var(--radius-full);
+  padding-inline: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+
+  @include text-sm;
+  @include focus-ring;
+
+  @include hover {
+    color: var(--color-text);
+  }
+
+  // The section being read sits on a quiet pill
+  &[aria-current="location"] {
+    background-color: var(--color-fill-strong);
+    color: var(--color-text);
+  }
+}

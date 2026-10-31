@@ -1,0 +1,41 @@
+@use "@/shared/styles/mixins" as *;
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.tile {
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+}
+
+.caption {
+  @include caption;
+}
+
+// A month's net, in the colour of how it went
+@mixin figure($color) {
+  @include num-sm;
+  margin-top: 0.25rem;
+  color: $color;
+}
+
+.best {
+  @include figure(var(--color-income));
+}
+
+.worst {
+  @include figure(var(--color-expense));
+}
+
+.even {
+  @include figure(var(--color-text));
+}
+
+.summary {
+  @include caption;
+  margin-top: 0.5rem;
+}

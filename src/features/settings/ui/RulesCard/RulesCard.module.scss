@@ -1,0 +1,80 @@
+@use "@/shared/styles/mixins" as *;
+
+// The new rule's words, category, kind and button, two by two from tablets
+.form {
+  display: grid;
+  gap: 0.5rem;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.75rem;
+
+  @include from(sm) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    // The add button closes the form across both columns
+    > :last-child {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.empty {
+  @include caption;
+  margin-top: 0.75rem;
+  padding-inline: 0.25rem;
+}
+
+.rows {
+  @include rows;
+  margin-top: 0.75rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.text {
+  @include text-sm;
+  min-width: 0;
+  flex: 1;
+}
+
+.match {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.arrow {
+  color: var(--color-text-tertiary);
+}
+
+.category {
+  color: var(--color-text-secondary);
+}
+
+// The clean name a rule gives the merchant, before its category
+.rename {
+  font-weight: 600;
+}
+
+.type {
+  @include text-xs;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.remove {
+  @include icon-btn;
+  @include icon-btn-danger;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}

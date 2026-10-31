@@ -1,0 +1,157 @@
+@use "@/shared/styles/mixins" as *;
+
+.search {
+  margin-top: 0.75rem;
+}
+
+.rows {
+  @include rows;
+  margin-top: 0.75rem;
+}
+
+.none {
+  @include text-sm;
+  padding-block: 1.5rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.defaults {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.note {
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+// A category: fold button, the row that opens it, add-child and delete buttons
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding-inline: 0.25rem;
+}
+
+// A subcategory settles in under its group as the group unfolds
+.childRow {
+  @include unfold;
+}
+
+.fold {
+  @include icon-btn;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.chevron {
+  transition: rotate 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.open {
+  rotate: 90deg;
+}
+
+.foldSpace {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+}
+
+.edit {
+  @include row-tap;
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.5rem;
+  padding-right: 0.5rem;
+  text-align: left;
+}
+
+.parentEdit {
+  padding-left: 0.5rem;
+}
+
+.childEdit {
+  padding-left: 1.5rem;
+}
+
+.mark {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+}
+
+.parentMark {
+  @include text-lg;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.childMark {
+  @include text-base;
+  width: 2rem;
+  height: 2rem;
+}
+
+// The name, and under it how many subcategories and records it has
+.label {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.meta {
+  @include text-xs;
+  @include truncate;
+  color: var(--color-text-tertiary);
+}
+
+.name {
+  @include text-sm;
+  @include clamp(2);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.actionSpace {
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+}
+
+.action {
+  @include icon-btn;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  transition: opacity var(--duration-fast) ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  // With a pointer the buttons wait out of sight until their row is hovered or focused
+  @media (hover: hover) {
+    .row:not(:hover, :focus-within) & {
+      opacity: 0;
+    }
+  }
+}
+
+.danger {
+  @include icon-btn-danger;
+}

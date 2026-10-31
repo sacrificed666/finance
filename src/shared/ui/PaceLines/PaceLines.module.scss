@@ -1,0 +1,16 @@
+@use "@/shared/styles/mixins" as *;
+
+.plot {
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.figure {
+  @include tnum;
+}
+
+.tooltipTitle {
+  margin-bottom: 0.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}

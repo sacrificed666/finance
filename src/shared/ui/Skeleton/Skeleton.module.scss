@@ -1,0 +1,354 @@
+@use "@/shared/styles/mixins" as *;
+
+// A shimmering fill standing in for a figure, a line of text, a mark or a picture
+.bone {
+  @include shimmer;
+  display: block;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+}
+
+// A card in the shape of the real one: its mark and name, then its body
+.card {
+  @include glass;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding);
+
+  @include from(sm) {
+    padding: 1.25rem 1.375rem 1.375rem;
+  }
+}
+
+.head {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.mark {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.titles {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 0.4375rem;
+}
+
+.title {
+  width: 7.5rem;
+  max-width: 70%;
+  height: 0.6875rem;
+}
+
+.subtitle {
+  width: 11rem;
+  max-width: 90%;
+  height: 0.5625rem;
+}
+
+.action {
+  width: 5.5rem;
+  height: 2rem;
+}
+
+// A list: a disc, a name with a line under it, and the amount on the right
+.rows {
+  display: grid;
+}
+
+.row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.5625rem;
+}
+
+.rowDisc {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.rowText {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 0.4375rem;
+}
+
+.rowName {
+  width: 52%;
+  height: 0.6875rem;
+}
+
+.rowMeta {
+  width: 34%;
+  height: 0.5625rem;
+}
+
+.rowAmount {
+  width: 4.25rem;
+  height: 0.75rem;
+}
+
+// Every other row a little shorter, so a list does not read as a barcode
+.row:nth-child(even) .rowName {
+  width: 40%;
+}
+
+.row:nth-child(3n) .rowMeta {
+  width: 46%;
+}
+
+// A chart, a map or a grid: one block of its height
+.block {
+  width: 100%;
+  border-radius: var(--radius-in-card);
+}
+
+.centred {
+  margin-inline: auto;
+}
+
+// Tiles inside a card, two a row on phones (or one, for tall cards) and their own count wider
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(var(--phone-cols, 2), minmax(0, 1fr));
+  gap: 0.5rem;
+
+  @include from(md) {
+    grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  }
+}
+
+.innerTile {
+  border-radius: var(--radius-in-card);
+
+  // An odd last tile on phones takes the whole row, so no row ends in a gap
+  @include below(md) {
+    &:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+// A split bar over its legend of dots, names and amounts
+.split {
+  display: grid;
+  gap: 0.875rem;
+}
+
+.splitBar {
+  height: 0.625rem;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.dot {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.legendName {
+  width: 38%;
+  height: 0.625rem;
+}
+
+.legendValue {
+  width: 4rem;
+  height: 0.6875rem;
+  margin-left: auto;
+}
+
+// Form fields: a label over a control as wide as the form
+.fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.label {
+  width: 6rem;
+  height: 0.5625rem;
+}
+
+.control {
+  width: 100%;
+  height: 2.75rem;
+}
+
+// The opening row: the lit tile with its figure and picture, then its figure tiles
+.hero {
+  display: grid;
+  min-width: 0;
+  gap: 0.75rem;
+
+  @include from(sm) {
+    gap: 0.875rem;
+  }
+}
+
+.heroWithTiles {
+  @include from(xl) {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  }
+}
+
+.heroTile {
+  @include glass;
+  @include glow;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-radius: var(--radius-lg);
+  padding: 1.125rem 1.125rem 1.25rem;
+
+  @include from(sm) {
+    padding: 1.375rem 1.5rem 1.5rem;
+  }
+}
+
+.heroLabel {
+  width: 7rem;
+  height: 0.6875rem;
+}
+
+.heroBody {
+  display: grid;
+  gap: 1.25rem 2.5rem;
+
+  @include from(lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+.heroLead {
+  display: grid;
+  align-content: start;
+  gap: 0.875rem;
+}
+
+.figure {
+  width: 78%;
+  height: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  border-radius: var(--radius-in-card);
+}
+
+.figureSub {
+  width: 52%;
+  height: 0.75rem;
+}
+
+.chip {
+  width: 9.5rem;
+  height: 1.75rem;
+}
+
+.picture {
+  height: 7.5rem;
+  border-radius: var(--radius-in-card);
+}
+
+// The figure tiles: two a row on phones, all in a row on tablets, two by two wide
+.statTiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 0.75rem;
+
+  @include from(sm) {
+    gap: 0.875rem;
+  }
+
+  @include from(md) {
+    grid-template-columns: repeat(var(--tiles, 4), minmax(0, 1fr));
+  }
+
+  @include from(xl) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// The dashboard's two tiles stand one over the other beside its headline
+.stacked {
+  @include from(xl) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.statTile {
+  @include glass;
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 0.75rem;
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+
+  @include from(sm) {
+    padding: 1.125rem 1.25rem;
+  }
+}
+
+.statValue {
+  width: 62%;
+  height: 1.75rem;
+  border-radius: 0.625rem;
+}
+
+.statHint {
+  width: 80%;
+  height: 0.5625rem;
+}
+
+// A page's blocks, as far apart as the page's own
+.page {
+  @include space-y(0.75rem);
+
+  @include from(sm) {
+    @include space-y(1rem);
+  }
+}
+
+// The settings' row of sections
+.sections {
+  width: min(100%, 52rem);
+  height: 2.75rem;
+}
+
+// The dashboard's two insights under its headline
+.insights {
+  display: grid;
+  gap: 0.75rem;
+
+  @include from(sm) {
+    gap: 1rem;
+  }
+
+  @include from(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.insight {
+  height: 3.75rem;
+  border-radius: var(--radius-lg);
+}

@@ -1,0 +1,46 @@
+@use "@/shared/styles/mixins" as *;
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.kinds {
+  margin-bottom: 0.5rem;
+}
+
+.none {
+  @include text-sm;
+  padding-block: 1.5rem;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+// The cards, in two balanced columns from small tablets when there are several
+.cards {
+  gap: 0.75rem;
+
+  @include from(sm) {
+    gap: 1rem;
+  }
+}
+
+.columns {
+  @include from(sm) {
+    columns: 2;
+  }
+}
+
+.card {
+  margin-bottom: 0.75rem;
+  break-inside: avoid;
+
+  @include from(sm) {
+    margin-bottom: 1rem;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

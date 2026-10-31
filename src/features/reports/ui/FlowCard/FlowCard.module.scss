@@ -1,0 +1,54 @@
+@use "@/shared/styles/mixins" as *;
+
+// The drawing and the names over it, each placed where the layout put it
+.plot {
+  position: relative;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+// A band takes the colour of the part at its outer end, softly
+.band {
+  fill: color-mix(in oklab, var(--band) 34%, transparent);
+}
+
+// The pool every source runs into and every use runs out of
+.pool {
+  fill: var(--color-text-tertiary);
+}
+
+.labelIn,
+.labelOut {
+  position: absolute;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.0625rem;
+}
+
+.labelIn {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.labelOut {
+  align-items: flex-start;
+}
+
+.name {
+  @include text-xs;
+  @include truncate;
+  max-width: 100%;
+  color: var(--color-text-secondary);
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  font-weight: 700;
+  color: var(--color-text);
+}

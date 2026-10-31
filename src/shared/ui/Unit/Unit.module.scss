@@ -1,0 +1,7 @@
+@use "@/shared/styles/mixins" as *;
+
+.unit {
+  @include text-xs;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}

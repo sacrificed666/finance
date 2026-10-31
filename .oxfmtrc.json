@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  // Long lines, so data and JSX stay on one line more often
+  "printWidth": 120,
+  // Imports sorted into groups by source
+  "sortImports": true,
+  // Build output, reports and generated files
+  "ignorePatterns": [
+    ".next",
+    "coverage",
+    "playwright-report",
+    "test-results",
+    "public",
+    "next-env.d.ts",
+    "package-lock.json"
+  ]
+}

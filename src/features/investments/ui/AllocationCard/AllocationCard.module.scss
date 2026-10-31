@@ -1,0 +1,24 @@
+@use "@/shared/styles/mixins" as *;
+
+.currencies {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+// A currency's share as a pill
+.currency {
+  @include text-xs;
+  border-radius: var(--radius-full);
+  background-color: var(--color-fill);
+  padding: 0.25rem 0.625rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.share {
+  @include tnum;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}

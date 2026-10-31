@@ -1,0 +1,92 @@
+@use "@/shared/styles/mixins" as *;
+
+.rows {
+  @include rows;
+  @include stagger;
+}
+
+// A date badge, the icon, what is due and its amount
+.row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+// The day over its month, overdue ones in the warning colour
+.date {
+  display: flex;
+  width: 2.75rem;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--radius-in-card);
+  background-color: var(--color-fill);
+  padding: 0.3125rem 0;
+}
+
+.late {
+  background-color: color-mix(in oklab, var(--color-warning) 16%, transparent);
+  color: var(--color-warning);
+}
+
+.day {
+  @include tnum;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.month {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+
+  .late & {
+    color: inherit;
+  }
+}
+
+.text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.title {
+  @include truncate;
+  @include text-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.meta {
+  @include truncate;
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
+
+.lateText {
+  color: var(--color-warning);
+}
+
+.amount {
+  @include tnum;
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.in {
+  color: var(--color-income);
+}
+
+.empty {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}

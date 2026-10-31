@@ -1,0 +1,58 @@
+@use "@/shared/styles/mixins" as *;
+
+.footer {
+  margin-top: 1.5rem;
+  @include hide-in-print;
+}
+
+.bar {
+  @include glass;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  @include text-sm;
+
+  // At least 24 px tall, so links on wrapped lines stay easy to hit
+  a {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
+    color: var(--color-text);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-text-tertiary);
+    text-underline-offset: 0.2em;
+
+    @include hover {
+      color: var(--color-accent);
+    }
+  }
+}
+
+.owner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--color-text);
+
+  > span {
+    color: var(--color-text-tertiary);
+  }
+
+  a {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 1rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}

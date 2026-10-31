@@ -1,0 +1,14 @@
+@use "@/shared/styles/mixins" as *;
+
+.main {
+  @include num-sm;
+  display: block;
+  color: var(--color-text);
+}
+
+.others {
+  @include tnum;
+  margin-top: 0.25rem;
+  @include text-xs;
+  color: var(--color-text-secondary);
+}

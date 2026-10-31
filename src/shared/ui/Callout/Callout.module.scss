@@ -1,0 +1,54 @@
+@use "@/shared/styles/mixins" as *;
+
+.callout {
+  display: flex;
+  gap: 0.625rem;
+  border-radius: var(--radius-in-card);
+  border: 1px solid;
+  padding: 0.75rem;
+  @include text-sm;
+  color: var(--color-text);
+}
+
+.info {
+  border-color: color-mix(in oklab, var(--series-10) 35%, transparent);
+  background-color: color-mix(in oklab, var(--series-10) 9%, transparent);
+}
+
+.tip {
+  border-color: color-mix(in oklab, var(--series-3) 35%, transparent);
+  background-color: color-mix(in oklab, var(--series-3) 9%, transparent);
+}
+
+.success {
+  border-color: color-mix(in oklab, var(--color-income) 30%, transparent);
+  background-color: color-mix(in oklab, var(--color-income) 8%, transparent);
+}
+
+.warning {
+  border-color: color-mix(in oklab, var(--color-warning) 35%, transparent);
+  background-color: color-mix(in oklab, var(--color-warning) 10%, transparent);
+}
+
+.danger {
+  border-color: color-mix(in oklab, var(--color-expense) 30%, transparent);
+  background-color: color-mix(in oklab, var(--color-expense) 8%, transparent);
+}
+
+.icon {
+  margin-top: 0.125rem;
+  opacity: 0.8;
+}
+
+.content {
+  @include space-y(0.125rem);
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.body {
+  color: var(--color-text-secondary);
+}

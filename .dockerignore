@@ -1,0 +1,38 @@
+# Keeps the build context small and free of secrets
+
+# Version control and CI
+.git
+.github
+
+# Dependencies and build output, made again inside the image
+.next
+node_modules
+
+# Test reports
+coverage
+playwright-report
+test-results
+blob-report
+lighthouse-live
+
+# Docs and the Docker setup, which the image does not need, but for the backup script
+docs
+docker
+!docker/backup.sh
+compose.yaml
+Makefile
+vercel.json
+
+# Environment files; only the example may enter
+.env
+.env.*
+!.env.example
+
+# Database dumps never enter an image
+backups
+*.dump
+*.sql.gz
+
+# Logs and system files
+*.log
+.DS_Store

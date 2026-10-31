@@ -1,0 +1,11 @@
+@use "@/shared/styles/mixins" as *;
+
+.status {
+  @include text-sm;
+  color: var(--color-text-secondary);
+}
+
+// The page in outline while the profile loads
+.loading {
+  display: block;
+}

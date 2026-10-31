@@ -1,0 +1,54 @@
+@use "@/shared/styles/mixins" as *;
+
+.rows {
+  @include rows;
+}
+
+// A place: its name and total over a bar against the first, how often under it
+.row {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.375rem;
+  padding: 0.625rem 0.75rem;
+}
+
+// A place that finds its entries in the ledger, filled while they are shown
+.tap {
+  @include row-tap;
+  width: 100%;
+  text-align: left;
+}
+
+.picked {
+  background-color: var(--color-fill);
+}
+
+// A long note is cut short with an ellipsis; the whole of it is in the tooltip
+.head {
+  display: flex;
+  min-width: 0;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.name {
+  @include truncate;
+  @include text-sm;
+  min-width: 0;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.total {
+  @include tnum;
+  @include text-sm;
+  flex-shrink: 0;
+  font-weight: 650;
+  color: var(--color-text);
+}
+
+.count {
+  @include text-xs;
+  color: var(--color-text-tertiary);
+}
