@@ -58,6 +58,12 @@ const SignInPage = ({ mode, googleEnabled }: SignInPageProps) => {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const passkeys = useSyncExternalStore(noSubscription, browserSupportsWebAuthn, () => false) && !register;
+  // Sending waits for the page to come alive, so an early click never reloads it
+  const hydrated = useSyncExternalStore(
+    noSubscription,
+    () => true,
+    () => false,
+  );
   const emailOk = emailValid(email);
   const passwordOk = register ? passwordStrength(password).rules.length : password.length > 0;
   const emailProblem = touched && email.trim() !== "" && !emailOk ? t("auth.error.email") : undefined;
@@ -225,7 +231,7 @@ const SignInPage = ({ mode, googleEnabled }: SignInPageProps) => {
               </p>
             )}
 
-            <Button type="submit" className={styles.wide} disabled={busy}>
+            <Button type="submit" className={styles.wide} disabled={busy || !hydrated}>
               {submitLabel}
             </Button>
             {needCode && (
