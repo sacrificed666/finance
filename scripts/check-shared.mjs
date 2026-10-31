@@ -55,7 +55,10 @@ const folder = args.find((arg) => !arg.startsWith("--"));
 // The folder with the other apps: the argument, or the parent of this one
 const parent = folder ? resolve(folder) : join(root, "..");
 // How another app is named in the messages
-const where = (app) => relative(process.cwd(), join(parent, app)) || app;
+const where = (app) => {
+  const path = relative(process.cwd(), join(parent, app));
+  return path === "" ? app : path;
+};
 
 const siblings = APPS.filter((app) => app !== self && existsSync(join(parent, app, "package.json")));
 if (siblings.length === 0) {
